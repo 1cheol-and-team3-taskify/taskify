@@ -1,0 +1,30 @@
+.gnb {
+  padding: 16px 80px 16px 16px;
+}
+
+.gnbContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 4px 2px 0 4px;
+}
+
+.logoText {
+  @media (max-width: 375px) {
+    display: none;
+  }
+}
+
+.authContainer {
+  display: flex;
+  gap: 36px;
+}
+
+.auth {
+  color: $black-200;
+}
