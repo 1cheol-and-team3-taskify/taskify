@@ -22,12 +22,8 @@ function Gnb() {
           />
         </Link>
         <div className={styles.authContainer}>
-          <Link className={styles.auth} href="/login">
-            로그인
-          </Link>
-          <Link className={styles.auth} href="/signup">
-            회원가입
-          </Link>
+          <Link href="/login">로그인</Link>
+          <Link href="/signup">회원가입</Link>
         </div>
       </div>
     </div>

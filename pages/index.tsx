@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/pages/Home.module.scss";
 import Header from "@/components/gnb/Gnb";
+import Footer from "@/components/footer/Footer";
 
 export default function Home() {
   return (
@@ -10,9 +11,11 @@ export default function Home() {
         <title>Taskify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <body>
         <Header />
-      </main>
+        <main></main>
+        <Footer />
+      </body>
     </>
   );
 }

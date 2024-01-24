@@ -1,5 +1,9 @@
 .gnb {
-  padding: 16px 80px 16px 16px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 16px 80px;
+  color: $black-200;
 }
 
 .gnbContainer {
@@ -23,8 +27,4 @@
 .authContainer {
   display: flex;
   gap: 36px;
-}
-
-.auth {
-  color: $black-200;
 }
