@@ -9,7 +9,7 @@ export default function Home() {
         <title>Taskify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <main className={styles.main}>test</main>
     </>
   );
 }
