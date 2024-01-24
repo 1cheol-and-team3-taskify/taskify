@@ -1,9 +1,9 @@
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  padding: 40px 140px;
+  padding: 4rem 14rem;
   color: $gray-400;
+  font-size: 1.6rem;
+  background-color: $black-400;
 }
 
 .footerContainer {
@@ -13,10 +13,10 @@
 
 .info {
   display: flex;
-  gap: 32px;
+  gap: 3.2rem;
 }
 
 .link {
   display: flex;
-  gap: 14px;
+  gap: 1.4rem;
 }
