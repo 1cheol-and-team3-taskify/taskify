@@ -9,6 +9,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Head>
+        {" "}
         <title>Taskify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
