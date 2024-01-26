@@ -9,7 +9,7 @@ interface DeleteButtonProps {
 function DeleteButton({ onClick, small }: DeleteButtonProps) {
   return (
     <button
-      className={clsx(styles.button, small ? styles.small : styles.large)}
+      className={clsx(styles.button, small && styles.small)}
       onClick={onClick}
     >
       대시보드 삭제하기
