@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "@/styles/pages/Home.module.scss";
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
-import PlusBtn from "@/components/button/PlusBtn/PlusBtn";
+
 export default function Home() {
   return (
     <main className={styles.main}>
@@ -11,12 +11,6 @@ export default function Home() {
         <title>Taskify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <PlusBtn>새로운 대시보드</PlusBtn>
-      <PlusBtn size={"middle"}>새로운 대시보드</PlusBtn>
-      <PlusBtn size={"small"}>새로운 대시보드</PlusBtn>
-      <PlusBtn size={"colum1"}>새로운 대시보드</PlusBtn>
-      <PlusBtn size={"colum2"}>새로운 대시보드</PlusBtn>
-      <PlusBtn size={"colum3"}>새로운 대시보드</PlusBtn>
       <header className={styles.header}>
         <Image
           className={styles.headerImage}
