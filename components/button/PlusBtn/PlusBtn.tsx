@@ -7,27 +7,23 @@ interface PlusBtnProps {
   children: React.ReactNode;
   type?: "button";
   size?: string;
-  text?: string;
 }
 
 const PlusBtn: React.FC<PlusBtnProps> = ({
   children,
   type = "button",
   size,
-  text,
+
   ...props
 }) => {
   const plusBtnProps = { type, ...props };
 
   const className = clsx(styles["btn"], size && styles[`btn-size-${size}`]);
-  const textClassName = clsx(
-    styles["btn-text"],
-    text && styles[`btn-text-${text}`],
-  );
+
   return (
     <button className={className} {...plusBtnProps}>
       <div className={clsx(styles["btn-contents"])}>
-        <div className={textClassName}>
+        <div className={clsx(styles["btn-text"])}>
           <span>{children}</span>
         </div>
         <Image
