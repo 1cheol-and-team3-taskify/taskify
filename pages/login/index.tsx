@@ -11,7 +11,6 @@ export default function login() {
       <Input
         type="password"
         onChange={function (e: ChangeEvent<HTMLInputElement>): void {}}
-        max={8}
       />
     </div>
   );

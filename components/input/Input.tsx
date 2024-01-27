@@ -6,6 +6,7 @@ import Image from "next/image";
 const eyeon = require("@/public/input/password-on.svg");
 const eyeoff = require("@/public/input/password-off.svg");
 
+
 interface InputProps {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
