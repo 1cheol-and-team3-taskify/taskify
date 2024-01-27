@@ -6,17 +6,12 @@ export default function login() {
     <div>
       <Input
         type="email"
-        value={""}
-        onChange={function (e: ChangeEvent<HTMLInputElement>): void {
-          throw new Error("Function not implemented.");
-        }}
+        onChange={function (e: ChangeEvent<HTMLInputElement>): void {}}
       />
       <Input
         type="password"
-        value={""}
-        onChange={function (e: ChangeEvent<HTMLInputElement>): void {
-          throw new Error("Function not implemented.");
-        }}
+        onChange={function (e: ChangeEvent<HTMLInputElement>): void {}}
+        max={8}
       />
     </div>
   );
