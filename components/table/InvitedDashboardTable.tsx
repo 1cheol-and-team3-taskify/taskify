@@ -35,15 +35,25 @@ const InvitedDashboardTable = ({
       {totalCount ? (
         <div className={styles.tableArea}>
           <SearchBar />
-          <ul>
-            {invitations.map(invitation => (
-              <li>
-                {invitation.dashboard}
-                {invitation.inviter}
-                {invitation.inviteAccepted}
-              </li>
-            ))}
-          </ul>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>이름</th>
+                <th>초대자</th>
+                <th>수락 여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invitations.map(invitation => (
+                /** @TODO 수락/거절 버튼 컴포넌트 완성되면 적용하기 */
+                <tr>
+                  <td>{invitation.dashboard}</td>
+                  <td>{invitation.inviter}</td>
+                  <td>{invitation.inviteAccepted ? "수락" : "거절"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <NoInvitation />
