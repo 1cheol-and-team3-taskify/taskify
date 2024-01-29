@@ -13,7 +13,7 @@
   line-height: normal;
 }
 
-.no-invitation {
+.noInvitation {
   @include column-flexbox();
   @include text-style-18-light();
   width: 100%;

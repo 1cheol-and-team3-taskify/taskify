@@ -12,7 +12,7 @@ interface InvitedDashboardTableProps {
 
 const NoInvitation = () => {
   return (
-    <div className={styles["no-invitation"]}>
+    <div className={styles.noInvitation}>
       <Image
         src={noInvitationIcon}
         alt="No Invitation"
