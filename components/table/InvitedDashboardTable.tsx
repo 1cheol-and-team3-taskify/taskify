@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./InvitedDashboardTable.module.scss";
 import { MappedInvitations } from "@/types/invitations";
 import noInvitationIcon from "@/public/icons/noInvitation.svg";
+import SearchBar from "@/components/input/SearchBar";
 
 const NO_INVITATION_ICON_SIZE = 100;
 
@@ -32,15 +33,18 @@ const InvitedDashboardTable = ({
     <div className={styles.wrapper}>
       <div className={styles.title}>초대받은 대시보드</div>
       {totalCount ? (
-        <ul>
-          {invitations.map(invitation => (
-            <li>
-              {invitation.dashboard}
-              {invitation.inviter}
-              {invitation.inviteAccepted}
-            </li>
-          ))}
-        </ul>
+        <div className={styles.tableArea}>
+          <SearchBar />
+          <ul>
+            {invitations.map(invitation => (
+              <li>
+                {invitation.dashboard}
+                {invitation.inviter}
+                {invitation.inviteAccepted}
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         <NoInvitation />
       )}

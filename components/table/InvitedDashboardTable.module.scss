@@ -21,3 +21,9 @@
   color: $gray-400;
   margin-top: 6.6rem;
 }
+
+.tableArea {
+  margin-top: 20px;
+  @include column-flexbox(start, stretch);
+  gap: 2.4rem;
+}
