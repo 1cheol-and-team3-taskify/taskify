@@ -1,0 +1,13 @@
+.gnb {
+  position: sticky;
+  top: 0;
+  padding: 2.3rem 8rem 2.3rem 34rem;
+  background-color: $white;
+  color: $black-200;
+  font-size: 1.6rem;
+  border-bottom: 0.1rem solid $gray-300;
+}
+
+.dashboardTitle {
+  @include text-style-20-bold();
+}
