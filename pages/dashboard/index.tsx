@@ -4,8 +4,6 @@ import InputDropdown from "@/components/inputdropdown/InputDropdown";
 
 import mockData from "./mock.json";
 import assigneeMockData from "./mockAssignee.json";
-import SideBar from "@/components/sidemenu/SideMenu";
-import DashboardGnb from "@/components/gnb/DashboardGnb";
 
 interface DropdownItem {
   id: number;
@@ -58,9 +56,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       {/* <Dropdown data={data} />
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <InputDropdown assigneeData={assigneeData} /> */}
-
-      <DashboardGnb />
-      <SideBar />
     </div>
   );
 };

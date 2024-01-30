@@ -3,7 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import styles from "./SideMenu.module.scss";
 
-const SideBar = () => {
+const SideMenu = () => {
   return (
     <div className={clsx(styles.Container)}>
       <Link className={clsx(styles.logo)} href="/">
@@ -32,8 +32,13 @@ const SideBar = () => {
           />
         </Link>
       </div>
+      {/* <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul> */}
     </div>
   );
 };
 
-export default SideBar;
+export default SideMenu;
