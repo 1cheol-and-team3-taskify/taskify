@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/Dropdown";
 import InputDropdown from "@/components/inputdropdown/InputDropdown";
-
+import clsx from "clsx";
+import styles from '@/styles/pages/Dashboard.module.scss'
 import mockData from "./mock.json";
 import assigneeMockData from "./mockAssignee.json";
 
@@ -52,10 +53,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
   }, []);
 
   return (
-    <div>
-      {/* <Dropdown data={data} />
+    <div className={clsx(styles.bg)}>
+      <Dropdown data={data} />
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <InputDropdown assigneeData={assigneeData} /> */}
+      <InputDropdown assigneeData={assigneeData} />
     </div>
   );
 };
