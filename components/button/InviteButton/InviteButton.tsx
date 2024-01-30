@@ -6,64 +6,71 @@ import styles from "./InviteButton.module.scss";
 
 interface InvitebuttonProps {
   children: React.ReactNode;
-  type?: "accept" | "deny" | "delete";
+  type?: "accept" | "deny";
   disabled?: boolean;
+  small?: boolean;
+  large?: boolean;
   onAccept?: () => void;
   onDeny?: () => void;
-  onDelete?: () => void;
 }
 
 const InviteButton: React.FC<InvitebuttonProps> = ({
   children,
   type = "accept",
   disabled = false,
+  small,
+  large,
   onAccept,
   onDeny,
-  onDelete,
   ...props
 }) => {
-  const [isAccepted, setIsAccepted] = useState<boolean>(false);
+  const [isAccepted, setIsAccepted] = useState<boolean>(true);
+  const [isDenied, setIsDenied] = useState<boolean>(false);
 
   const handleAcceptClick = () => {
-    setIsAccepted(true);
+    setIsAccepted(!isAccepted);
+    setIsDenied(!isDenied);
+
     if (onAccept) {
       onAccept();
     }
   };
 
   const handleDenyClick = () => {
-    setIsAccepted(false);
+    setIsAccepted(!isAccepted);
+    setIsDenied(!isDenied);
+
     if (onDeny) {
       onDeny();
     }
   };
-  const handleDelteClick = () => {
-    if (onDelete) {
-      onDelete();
-    }
+
+  const handleDisabledClick = () => {
+    setIsAccepted(!isAccepted);
+    setIsDenied(!isDenied);
   };
 
   return (
     <button
-      className={clsx(styles.button, {
-        [styles.accept]: type === "accept" && !isAccepted,
-        [styles.deny]: type === "deny" && !isAccepted,
-        [styles.delete]: type === "delete",
-        [styles.disabled]: disabled === isAccepted,
-      })}
-      onClick={type === "accept" ? handleAcceptClick : handleDenyClick}
+      className={clsx(
+        styles.button,
+        {
+          [styles.selected]: disabled,
+        },
+        small && styles.small,
+        large && styles.large,
+      )}
+      onClick={
+        disabled
+          ? handleDisabledClick
+          : type === "accept"
+            ? handleAcceptClick
+            : handleDenyClick
+      }
       disabled={disabled}
       {...props}
     >
-      <span
-        className={clsx(styles.buttonText, {
-          [styles.accept]: type === "accept",
-          [styles.deny]: type === "deny",
-          [styles.disabled]: isAccepted,
-        })}
-      >
-        {children}
-      </span>
+      {children}
     </button>
   );
 };
