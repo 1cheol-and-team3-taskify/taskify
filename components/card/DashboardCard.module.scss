@@ -4,12 +4,27 @@
   border-radius: 0.6rem;
   border: 1px solid $gray-300;
   background-color: $white;
+  position: relative;
+
+  @include column-flexbox(start, start);
+  gap: 1.2rem;
 
   @include tablet {
-    //blabla
+    flex-direction: row;
+    gap: 2rem;
   }
 
   @include mobile {
     padding: 1.2rem;
+    gap: 1rem;
   }
+}
+
+.cardImage {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.cardInfo {
+  // blabla
 }
