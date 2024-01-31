@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import styles from "./editDashboardTable.module.scss";
-import SelectColorChip from "@/components/chips/SelectColorChip";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import mockData from "@/pages/dashboard/mock.json";
 import Image from "next/image";
 import { COLORS } from "@/constants/color";
 import BaseButton from "@/components/button/baseButton/BaseButton";
+import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
 
 interface DropdownItem {
   id: number;
@@ -95,23 +95,11 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
             alt="dropdown icon"
           />
           {isOpen && (
-            <div className={clsx(styles.popupWrapper)}>
-              <div className={clsx(styles.popup)}>
-                <SelectColorChip
-                  type="edit"
-                  color={selectedColor}
-                  setColor={setSelectedColor}
-                />
-                <button onClick={handlePopupClose}>
-                  <Image
-                    src="/icons/close.svg"
-                    width={10}
-                    height={10}
-                    alt="close"
-                  />
-                </button>
-              </div>
-            </div>
+            <SelectChipDropdown
+              onClick={handlePopupClose}
+              selectedColor={selectedColor}
+              setSelectedColor={setSelectedColor}
+            />
           )}
         </div>
       </div>
