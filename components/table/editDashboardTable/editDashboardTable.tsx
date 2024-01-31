@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import styles from "./editDashboardTable.module.scss";
-import EditButton from "@/components/button/editButton/EditButton";
 import SelectColorChip from "@/components/chips/SelectColorChip";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import mockData from "@/pages/dashboard/mock.json";
 import Image from "next/image";
 import { COLORS } from "@/constants/color";
+import BaseButton from "@/components/button/baseButton/BaseButton";
 
 interface DropdownItem {
   id: number;
@@ -104,7 +104,6 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
                 />
                 <button onClick={handlePopupClose}>
                   <Image
-                    className={clsx(styles.close)}
                     src="/icons/close.svg"
                     width={10}
                     height={10}
@@ -117,17 +116,18 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
         </div>
       </div>
       <div className={clsx(styles.dashboardInputBox)}>
-        <label className={clsx(styles.label)}>대시보드 이름</label>
+        <label>대시보드 이름</label>
         <input
-          className={clsx(styles.dashboardInput)}
           placeholder="뉴 프로젝트"
           value={editName}
           onChange={OnNameChangeHandler}
           onFocus={OnFocusInputHandler}
         />
       </div>
-      <div className={clsx(styles.editButton)}>
-        <EditButton disabled={isNotActive} />
+      <div className={clsx(styles.button)}>
+        <BaseButton type="submit" disabled={isNotActive} small>
+          변경
+        </BaseButton>
       </div>
     </form>
   );
