@@ -23,7 +23,7 @@ const SelectChipDropdown: React.FC<SelectChipDropdown> = ({
           color={selectedColor}
           setColor={setSelectedColor}
         />
-        <button type="button" onClick={onClick}>
+        <button className={clsx(styles.button)} type="button" onClick={onClick}>
           <Image src="/icons/close.svg" width={10} height={10} alt="close" />
         </button>
       </div>

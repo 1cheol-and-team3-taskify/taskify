@@ -1,10 +1,10 @@
 .tableForm {
   @include column-flexbox(start, between);
   max-width: 62rem;
-  height: 47.7rem;
+  height: 36rem;
   border-radius: 0.8rem;
   background-color: $white;
-  gap: 3rem;
+  gap: 1rem;
   padding: 2.8rem;
 
   .dashboardTitle {
