@@ -23,10 +23,13 @@ const Button: React.FC<ButtonProps> = ({
   const buttonProps = { type, disabled, ...props };
 
   return (
-    <button className={clsx(styles["button-wrapper"])} {...buttonProps}>
+    <button
+      className={clsx(styles.buttonWrapper, white && styles.white)}
+      {...buttonProps}
+    >
       <span
         className={clsx(
-          styles["button-text"],
+          styles.buttonText,
           small && styles.small,
           white && styles.white,
         )}
