@@ -1,30 +1,45 @@
-import React from "react";
-import clsx from "clsx";
+import { ReactNode, MouseEvent } from "react";
 import styles from "./BaseButton.module.scss";
+import clsx from "clsx";
 
-interface ButtonProps {
-  children: React.ReactNode;
+interface BaseButtonProps {
+  children: ReactNode;
   type?: "button" | "submit";
   disabled?: boolean;
   small?: boolean;
+  white?: boolean;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void; // 새로 추가된 프로퍼티
 }
 
-const Button: React.FC<ButtonProps> = ({
+const BaseButton: React.FC<BaseButtonProps> = ({
   children,
   type = "button",
   disabled = false,
   small = false,
+  white = false,
+  onClick,
   ...props
 }) => {
   const buttonProps = { type, disabled, ...props };
 
   return (
-    <button className={clsx(styles["button-wrapper"])} {...buttonProps}>
-      <span className={clsx(styles["button-text"], small && styles.small)}>
+    <button
+      className={clsx(styles.buttonWrapper, white && styles.white)}
+      {...buttonProps}
+    >
+      <span
+        className={clsx(
+          styles.buttonText,
+          small && styles.small,
+          white && styles.white,
+        )}
+        onClick={onClick}
+        {...buttonProps}
+      >
         {children}
       </span>
     </button>
   );
 };
 
-export default Button;
+export default BaseButton;
