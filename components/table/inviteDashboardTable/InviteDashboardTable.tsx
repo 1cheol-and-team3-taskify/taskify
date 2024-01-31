@@ -120,7 +120,7 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
               )
               .map(invitation => (
                 <li key={invitation.invitee.email}>
-                  {invitation.inviteAccepted && (
+                  {invitation.invitee && (
                     <div className={clsx(styles.inviteListWrapper)}>
                       <div className={clsx(styles.invitedEmail)}>
                         {invitation.invitee.email}
