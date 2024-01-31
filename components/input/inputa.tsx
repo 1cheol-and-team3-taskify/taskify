@@ -1,26 +1,37 @@
-import React, { useState } from "react";
+import { Children, useState } from "react";
 import styles from "./Input.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
+
+import { useForm } from "react-hook-form";
 
 const eyeon = require("@/public/input/password-on.svg");
 const eyeoff = require("@/public/input/password-off.svg");
 
 interface InputProps {
+  //children: React.ReactNode;
   value?: string;
+  type: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: "email" | "password";
+
   placeholder?: string;
   disabled?: boolean;
+  id: string;
+  error?: string;
 }
 
 const Input: React.FC<InputProps> = ({
-  type = "email",
   disabled = false,
+  // children,
+  type,
+  id,
+  placeholder,
+  error,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   const togglePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
@@ -29,6 +40,9 @@ const Input: React.FC<InputProps> = ({
   const inputProps = {
     type: showPassword ? "text" : type,
     disabled,
+    id,
+
+    //children,
     ...props,
   };
 
@@ -36,15 +50,12 @@ const Input: React.FC<InputProps> = ({
     <div className={clsx(styles.inputContainer)}>
       <div className={clsx(styles.inputWrapper)}>
         <input
-          className={isError ? clsx(styles.error) : clsx(styles.input)}
+          className={clsx(styles.input, error && styles.error)}
+          placeholder={placeholder}
+          // className={isError ? clsx(styles.error) : clsx(styles.input)}
           {...inputProps}
-          placeholder={
-            type === "email"
-              ? "이메일을 입력해주세요"
-              : "비밀번호를 입력해주세요"
-          }
         />
-        {type === "password" && (
+        {id === "password" && (
           <button
             className={clsx(styles.togglePasswordButton)}
             onClick={togglePasswordVisibility}
@@ -56,6 +67,7 @@ const Input: React.FC<InputProps> = ({
             />
           </button>
         )}
+        {error && <div className={clsx(styles.errorMessage)}>{error}</div>}
       </div>
     </div>
   );
