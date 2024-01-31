@@ -19,3 +19,9 @@
 .small {
   font-size: 1.4rem;
 }
+
+.white {
+  background-color: $white;
+  color: $violet-200;
+  border: 0.1rem solid $gray-300;
+}
