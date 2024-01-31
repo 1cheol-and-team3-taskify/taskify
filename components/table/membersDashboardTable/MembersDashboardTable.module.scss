@@ -1,28 +1,66 @@
 .tableForm {
-  width: 62rem;
-  height: 40.4rem;
+  max-width: 62rem;
   border-radius: 0.8rem;
   background-color: $white;
-  gap: 3rem;
+  gap: 1rem;
   padding: 2.8rem;
-  @include column-flexbox(start, between);
+  @include column-flexbox(start, stratch);
+  @include mobile {
+    min-width: 284px;
+  }
 }
 
 .dashboardTitle {
-  font-size: 2rem;
-  font-weight: 700;
   @include flexbox(between, center);
+  @include text-style-20-bold;
 }
 
 .pageNumber {
-  font-size: 1.4rem;
-  font-weight: 400;
   gap: 1.6rem;
   @include flexbox;
+  @include text-style-14-light;
 }
 
 .label {
-  font-size: 1.6rem;
-  font-weight: 400;
   color: $gray-400;
+  @include text-style-14-light;
+}
+
+.memberListWrapper {
+  gap: 1rem;
+  padding: 1rem;
+  @include flexbox(between, center);
+}
+
+.memberProfileImage {
+  border-radius: 99px;
+}
+
+.memberNickname {
+  @include text-style-16-middle;
+}
+
+.crownIcon {
+  margin-left: auto;
+  margin-right: 3.4rem;
+}
+
+.modalButtonGroup {
+  gap: 2rem;
+  @include flexbox(end, center);
+}
+
+.modalButton {
+  width: 8.4rem;
+  height: 3.2rem;
+}
+
+.deleteButton {
+  margin-left: auto;
+  width: 8.4rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid $gray-300;
+  color: $violet-200;
+  @include text-style-12-middle;
 }
