@@ -1,0 +1,55 @@
+{
+  "members": [
+    {
+      "id": 0,
+      "userId": 0,
+      "email": "string",
+      "nickname": "김민희",
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/600px-Sunflower_sky_backdrop.jpg",
+      "createdAt": "2024-01-31T05:26:09.409Z",
+      "updatedAt": "2024-01-31T05:26:09.409Z",
+      "isOwner": true
+    },
+    {
+      "id": 1,
+      "userId": 0,
+      "email": "string",
+      "nickname": "김성연",
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Red_Rose_135952.jpg/600px-Red_Rose_135952.jpg",
+      "createdAt": "2024-01-31T05:26:09.409Z",
+      "updatedAt": "2024-01-31T05:26:09.409Z",
+      "isOwner": true
+    },
+    {
+      "id": 2,
+      "userId": 0,
+      "email": "string",
+      "nickname": "박준성",
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/600px-Sunflower_sky_backdrop.jpg",
+      "createdAt": "2024-01-31T05:26:09.409Z",
+      "updatedAt": "2024-01-31T05:26:09.409Z",
+      "isOwner": true
+    },
+    {
+      "id": 3,
+      "userId": 0,
+      "email": "string",
+      "nickname": "전소은",
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Zinnia_elegans_01.jpg/600px-Zinnia_elegans_01.jpg",
+      "createdAt": "2024-01-31T05:26:09.409Z",
+      "updatedAt": "2024-01-31T05:26:09.409Z",
+      "isOwner": true
+    },
+    {
+      "id": 4,
+      "userId": 0,
+      "email": "string",
+      "nickname": "이윤경",
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/600px-Sunflower_sky_backdrop.jpg",
+      "createdAt": "2024-01-31T05:26:09.409Z",
+      "updatedAt": "2024-01-31T05:26:09.409Z",
+      "isOwner": true
+    }
+  ],
+  "totalCount": 0
+}

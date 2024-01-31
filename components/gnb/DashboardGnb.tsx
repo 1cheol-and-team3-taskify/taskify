@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./DashboardGnb.module.scss";
+import mockData from './members.json'
 
 interface DashboardGnbProps {
   // 받아오는 프롭들 타입 나중에 적어주기
@@ -21,6 +22,7 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
     // 로그아웃 클릭 시 수행할 동작
   };
 
+  const isDashboardRoute = /^\/(dashboard)/.test(router.pathname);
   const isEditPage = router.pathname === "/dashboard/[id]/edit";
 
   return (
@@ -29,7 +31,7 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
         {isEditPage ? "계정 관리" : "내 대시보드"}
       </div>
       <div className={clsx(styles.wrapper)}>
-        <div className={clsx(styles.manageWrapper)}>
+        {isDashboardRoute && <div className={clsx(styles.manageWrapper)}>
           <button className={clsx(styles.manageBtn)}>
             <Image
               src="/icons/manageButton.svg"
@@ -48,8 +50,8 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
             />
             <span>초대하기</span>
           </button>
-          <div></div>
-        </div>
+          <div className={clsx(styles.invitee)}></div>
+        </div>}
         <div className={clsx(styles.profile)} onClick={handleKebab}>
           <Image
             src="/icons/testProfileImg.svg"
