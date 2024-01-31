@@ -8,10 +8,15 @@
   @include text-style-14-middle;
   //text-align: center;
   color: $violet-200;
-  &.selected {
+  &:active {
     background: $violet-200;
     color: $white;
   }
+
+  // &.selected {
+  //   background: $violet-200;
+  //   color: $white;
+  // }
 }
 
 .small {

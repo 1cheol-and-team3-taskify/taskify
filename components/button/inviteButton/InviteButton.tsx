@@ -54,6 +54,8 @@ const InviteButton: React.FC<InvitebuttonProps> = ({
         styles.button,
         small && styles.small,
         large && styles.large,
+        type === "accept" && styles.selected,
+        type === "deny" && styles.deny,
       )}
       onClick={type === "accept" ? handleAcceptClick : handleDenyClick}
       {...props}
