@@ -31,8 +31,20 @@ function MembersDashboardTable() {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
   };
 
-  const handleDeleteMember = async (memberId: number) => {
-    await deleteMember(memberId);
+  const handleDeleteMember = async (
+    memberId: number,
+    memberNickname: string,
+  ) => {
+    const confirmed = window.confirm(
+      `${memberNickname}님을 구성원에서 삭제하겠습니까?`,
+    );
+    if (confirmed) {
+      try {
+        await deleteMember(memberId);
+      } catch (error) {
+        console.error("멤버 삭제에 실패했습니다.", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -99,12 +111,9 @@ function MembersDashboardTable() {
               ) : (
                 <div className={clsx(styles.button)}>
                   <BaseButton
-                    onClick={() => {
-                      alert(
-                        `${member.nickname}님을 구성원에서 삭제하겠습니까?`,
-                      );
-                      handleDeleteMember(member.id);
-                    }}
+                    onClick={() =>
+                      handleDeleteMember(member.id, member.nickname)
+                    }
                     small
                     white
                   >

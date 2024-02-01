@@ -38,8 +38,21 @@ function InviteDashboardTable() {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
   };
 
-  const handleCancelInvitation = async (invitationId: number) => {
-    await deleteDashboardInvitation(invitationId);
+  const handleCancelInvitation = async (
+    invitationId: number,
+    invitationNickname: string,
+  ) => {
+    const confirmed = window.confirm(
+      `${invitationNickname}님 초대를 취소하겠습니까?`,
+    );
+
+    if (confirmed) {
+      try {
+        await deleteDashboardInvitation(invitationId);
+      } catch (error) {
+        console.error("초대 삭제에 실패했습니다.", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -110,12 +123,12 @@ function InviteDashboardTable() {
                       </div>
                       <BaseButton
                         type="button"
-                        onClick={() => {
-                          alert(
-                            `${invitation.invitee.nickname}님 초대를 취소하겠습니까?`,
-                          );
-                          handleCancelInvitation(invitation.id);
-                        }}
+                        onClick={() =>
+                          handleCancelInvitation(
+                            invitation.id,
+                            invitation.invitee.nickname,
+                          )
+                        }
                         small
                         white
                       >

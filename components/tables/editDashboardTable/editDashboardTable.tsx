@@ -48,7 +48,15 @@ function EditDashboardTable() {
 
   const handleButtonClick = async () => {
     const body = { title: editName, color: selectedColor };
-    await editDashboard(body);
+    const confirmed = window.confirm("대시보드 이름을 변경하시겠습니까?");
+
+    if (confirmed) {
+      try {
+        await editDashboard(body);
+      } catch (error) {
+        console.error("이름 변경에 실패했습니다.", error);
+      }
+    }
   };
 
   const handleEditColorClick = useCallback(
@@ -112,14 +120,7 @@ function EditDashboardTable() {
         />
       </div>
       <div className={clsx(styles.button)}>
-        <BaseButton
-          onClick={() => {
-            alert("대시보드 이름을 변경하시겠습니까?");
-            handleButtonClick();
-          }}
-          disabled={isNotActive}
-          small
-        >
+        <BaseButton onClick={handleButtonClick} disabled={isNotActive} small>
           변경
         </BaseButton>
       </div>
