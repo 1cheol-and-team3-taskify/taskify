@@ -2,7 +2,6 @@ import clsx from "clsx";
 import styles from "./editDashboardTable.module.scss";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import mockData from "@/pages/dashboard/mock.json";
 import Image from "next/image";
 import { COLORS } from "@/constants/color";
 import BaseButton from "@/components/button/baseButton/BaseButton";
@@ -10,14 +9,8 @@ import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectC
 import { DashboardType } from "@/types/dashboard";
 import { getDashboardInfo } from "@/api/dashboards/getDashboardInfo";
 import { editDashboard } from "@/api/dashboards/editDashboard";
-import { title } from "process";
 
-interface Props {
-  dashTitle?: string | undefined;
-  dashColor?: string;
-}
-
-function EditDashboardTable({ dashTitle, dashColor }: Props) {
+function EditDashboardTable() {
   const [dashBoardInfo, setDashBoardInfo] = useState<DashboardType>({
     id: 0,
     title: "",
@@ -116,13 +109,14 @@ function EditDashboardTable({ dashTitle, dashColor }: Props) {
           placeholder="뉴 프로젝트"
           value={editName}
           onChange={OnNameChangeHandler}
-          // onFocus={OnFocusInputHandler}
         />
       </div>
       <div className={clsx(styles.button)}>
         <BaseButton
-          // type="submit"
-          onClick={handleButtonClick}
+          onClick={() => {
+            alert("대시보드 이름을 변경하시겠습니까?");
+            handleButtonClick();
+          }}
           disabled={isNotActive}
           small
         >

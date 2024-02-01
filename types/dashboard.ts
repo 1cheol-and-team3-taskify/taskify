@@ -8,7 +8,7 @@ export interface DashboardType {
   userId: number;
 }
 
-export interface PutDashboardType {
+export interface PutDashboardTitleType {
   title: string | undefined;
   color: string | undefined;
 }
