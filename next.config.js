@@ -8,7 +8,17 @@ const nextConfig = {
     prependData: `@import "styles/main.scss";`,
   },
   images: {
-    domains: ['upload.wikimedia.org'],
+    domains: ["upload.wikimedia.org"],
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/taskify/profile_image/**",
+      },
+    ],
   },
 };
 
