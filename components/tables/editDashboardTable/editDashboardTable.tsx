@@ -6,7 +6,7 @@ import styles from "./editDashboardTable.module.scss";
 import { DashboardType } from "@/types/dashboard";
 import { getDashboardInfo } from "@/api/dashboards/getDashboardInfo";
 import { editDashboard } from "@/api/dashboards/editDashboard";
-import { COLORS } from "@/constants/color";
+import { COLORS } from "@/constants/colors";
 import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 
