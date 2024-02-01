@@ -6,7 +6,7 @@ import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import { getMemberList } from "@/api/members/getMemberList";
 import { GetMemberListType } from "@/types/members";
-import { deleteMember } from "@/api/members/deleteMemver";
+import { deleteMember } from "@/api/members/deleteMember";
 
 function MembersDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);

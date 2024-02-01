@@ -57,7 +57,7 @@
     .profileImage {
       @include flexbox();
       @include text-style-20-bold;
-      background-color: $green-100;
+      background-color: $gray-400;
       border-radius: 99px;
       width: 3.8rem;
       height: 3.8rem;
