@@ -47,8 +47,9 @@
 }
 
 .memberWrapper {
+  @include text-style-18-middle();
   display: flex;
-  position: relative;
+  margin-right: 3.2rem;
 
   div {
     display: flex;
@@ -59,10 +60,12 @@
     color: $white;
     border: 0.2rem solid $white;
     border-radius: 99rem;
+    margin-left: -1rem;
   }
 
   .totalCount {
     background-color: $pink-100;
+    color: $pink;
   }
 }
 

@@ -48,8 +48,28 @@
       "createdAt": "2024-01-31T20:10:42.648Z",
       "updatedAt": "2024-01-31T20:10:42.648Z",
       "isOwner": false,
-      "userId": 740
+      "userId": 746
+    },
+    {
+      "id": 3801,
+      "email": "test123@email.com",
+      "nickname": "good",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:10:42.648Z",
+      "updatedAt": "2024-01-31T20:10:42.648Z",
+      "isOwner": false,
+      "userId": 748
+    },
+    {
+      "id": 3803,
+      "email": "test123@email.com",
+      "nickname": "good",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:10:42.648Z",
+      "updatedAt": "2024-01-31T20:10:42.648Z",
+      "isOwner": false,
+      "userId": 752
     }
   ],
-  "totalCount": 5
+  "totalCount": 7
 }
