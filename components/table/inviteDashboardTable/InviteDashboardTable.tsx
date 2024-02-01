@@ -2,35 +2,22 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import styles from "./InviteDashboardTable.module.scss";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-
 import Image from "next/image";
-import mockInvitations from "@/pages/mydashboard/mockInvitations.json";
 import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
-import { InitialInvitations } from "@/types/invitations";
 import BaseButton from "@/components/button/baseButton/BaseButton";
+import { getInvitationList } from "@/api/invitations/getInvitationList";
+import { GetDashboardInvitationType } from "@/types/dashboard";
+import { deleteDashboardInvitation } from "@/api/invitations/deleteInvitaionList";
 
-interface Invitee {
-  nickname: string;
-  email: string;
-  id: number;
-}
-
-interface InvitationType {
-  id: number;
-  invitee: Invitee;
-  inviteAccepted: boolean;
-  createdAt: string;
-}
-
-type InvitationTypes = InvitationType[];
-
-function InviteDashboardTable({ totalCount }: InitialInvitations) {
+function InviteDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
-  // mockdata 연결
-  const [inviteeData, setInviteeData] = useState<InvitationTypes | null>(null);
+  const [invitation, setInvitation] = useState<GetDashboardInvitationType>({
+    totalCount: 0,
+    invitations: [],
+  });
 
   const ITEMS_PER_PAGE = 4;
-  const totalPage = Math.ceil((totalCount || 1) / ITEMS_PER_PAGE);
+  const totalPage = Math.ceil((invitation?.totalCount || 1) / ITEMS_PER_PAGE);
   const handleLeftButtonClick = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   };
@@ -39,21 +26,8 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
   };
 
-  const handleCancelInvitation = (invitationId: number) => {
-    setInviteeData(prevInviteeData => {
-      if (prevInviteeData) {
-        return prevInviteeData.map(invitation => {
-          if (invitation.id === invitationId) {
-            return {
-              ...invitation,
-              inviteAccepted: false,
-            };
-          }
-          return invitation;
-        });
-      }
-      return prevInviteeData;
-    });
+  const handleCancelInvitation = async (invitationId: number) => {
+    await deleteDashboardInvitation(invitationId);
   };
 
   useEffect(() => {
@@ -62,17 +36,13 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
   }, [totalPage]);
 
   useEffect(() => {
-    const fetchInviteeData = async () => {
-      try {
-        const result: InvitationTypes = await mockInvitations.invitations;
-        setInviteeData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    const fetchInviteeData = async (page: number) => {
+      const invitations = await getInvitationList(5, page);
+      setInvitation(invitations);
     };
 
-    fetchInviteeData();
-  }, [inviteeData]);
+    fetchInviteeData(currentPage);
+  }, []);
 
   return (
     <form className={clsx(styles.tableForm)}>
@@ -108,11 +78,11 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
           </div>
         </div>
       </div>
-      {mockInvitations.totalCount ? (
+      {invitation?.totalCount ? (
         <>
           <div className={clsx(styles.label)}>이메일</div>
           <ul>
-            {mockInvitations.invitations
+            {invitation.invitations
               ?.sort(
                 (a, b) =>
                   new Date(b.createdAt).getTime() -
