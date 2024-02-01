@@ -1,3 +1,4 @@
+//login css
 .body {
   display: flex;
   flex-direction: column;
@@ -66,13 +67,14 @@
   padding: 0 0 30rem;
   width: 52rem;
   gap: 16px;
+
   .cb {
     @include text-style-16-light();
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  .signupBtn {
+  .loginBtn {
     Button {
       width: 52rem;
       height: 5rem;
@@ -83,6 +85,31 @@
     }
   }
 }
+.input {
+  padding: 1.5rem 0 1.5rem 1.6rem;
+  width: 52rem;
+  height: 5rem;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid $gray-300;
+  background: $white;
+  font-size: 16px;
+
+  &:focus {
+    outline: 1px solid $violet-200;
+  }
+  &.error {
+    width: 52rem;
+    height: 5rem;
+    border: 1px solid $red;
+  }
+  @media screen and (max-width: 375px) {
+    width: 35.1rem;
+    gap: 8px;
+  }
+}
+
 .wrapInput {
   gap: 8px;
 }
@@ -104,12 +131,12 @@
   }
 }
 
-.loginText {
+.wrapText {
   @include text-style-16-light();
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding: 20px 153px;
   width: 100%;
   gap: 5px;
@@ -121,7 +148,14 @@
     padding: 2.4rem 6.8rem 0rem;
   }
 }
-.login {
+.signupText {
   color: $violet-200;
   text-decoration: underline;
+}
+.errorMessage {
+  @include text-style-14-light();
+  color: $red;
+}
+.errorInput {
+  outline: $red;
 }

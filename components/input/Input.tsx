@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+//input
+import { forwardRef } from "react";
 import styles from "./Input.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
+import React from "react";
 
 const eyeon = require("@/public/input/password-on.svg");
 const eyeoff = require("@/public/input/password-off.svg");
@@ -11,16 +13,14 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: "email" | "password";
   placeholder?: string;
-  disabled?: boolean;
+  //disabled?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({
-  type = "email",
-  disabled = false,
-  ...props
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isError, setIsError] = useState(false);
+const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+  { type = "email", disabled = false, ...props },
+  ref,
+) => {
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword);
@@ -28,21 +28,19 @@ const Input: React.FC<InputProps> = ({
 
   const inputProps = {
     type: showPassword ? "text" : type,
-    disabled,
+    // disabled,
     ...props,
+    ref: ref,
   };
 
   return (
     <div className={clsx(styles.inputContainer)}>
       <div className={clsx(styles.inputWrapper)}>
         <input
-          className={isError ? clsx(styles.error) : clsx(styles.input)}
+          // className={clsx(styles.input, {
+          //   [styles.disabled]: disabled,
+          // })}
           {...inputProps}
-          placeholder={
-            type === "email"
-              ? "이메일을 입력해주세요"
-              : "비밀번호를 입력해주세요"
-          }
         />
         {type === "password" && (
           <button
@@ -61,4 +59,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default forwardRef(Input);
