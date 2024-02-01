@@ -8,6 +8,8 @@ import { deleteDashboardInvitation } from "@/api/invitations/deleteInvitaionList
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
+import InviteModal from "@/components/modal/inviteModal/InviteModal";
+import ModalPortal from "@/components/modal/ModalPortal";
 
 function InviteDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +17,16 @@ function InviteDashboardTable() {
     totalCount: 0,
     invitations: [],
   });
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+    console.log("열림");
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const ITEMS_PER_PAGE = 4;
   const totalPage = Math.ceil((invitation?.totalCount || 1) / ITEMS_PER_PAGE);
@@ -63,7 +75,7 @@ function InviteDashboardTable() {
               small
             />
             <div className={clsx(styles.button)}>
-              <BaseButton small>
+              <BaseButton onClick={openModal} small>
                 <div className={clsx(styles.buttonText)}>
                   <Image
                     src="/icons/addImage.svg"
@@ -74,6 +86,7 @@ function InviteDashboardTable() {
                   {"초대하기"}
                 </div>
               </BaseButton>
+              {isOpen && <InviteModal setIsOpen={setIsOpen} />}
             </div>
           </div>
         </div>

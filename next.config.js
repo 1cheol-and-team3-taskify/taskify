@@ -7,10 +7,9 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "styles")],
     prependData: `@import "styles/main.scss";`,
   },
+
   images: {
     domains: ["upload.wikimedia.org"],
-  },
-  images: {
     remotePatterns: [
       {
         protocol: "https",

@@ -37,3 +37,7 @@ export interface GetDashboardInvitationType {
   totalCount: number;
   invitations: DashboardInvitationType[];
 }
+
+export interface PostDashboardInvitationType {
+  email: string;
+}
