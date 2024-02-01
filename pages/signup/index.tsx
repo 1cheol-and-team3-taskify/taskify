@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import Input from "@/components/input/input";
+import { ChangeEvent, useState } from "react";
+import Input from "@/components/input/Input";
 import Image from "next/image";
 import Head from "next/head";
 import styles from "@/styles/pages/Signup.module.scss";
@@ -8,37 +8,80 @@ import Button from "@/components/button/baseButton/BaseButton";
 import Link from "next/link";
 import { emailRegex, passwordRegex } from "@/utils/regexp";
 import { useForm, FieldError, SubmitHandler } from "react-hook-form";
+import axios from "axios";
+import { useRouter } from 'next/router';
+import { login } from "@/api/auth/login";
+import { PostLoginRequestType } from "@/types/auth";
+
 
 interface FormInputs {
   email: string;
+  nickname: string;
   password: string;
 }
 
 export default function Signup() {
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors, isSubmitted },
     setError,
+    watch,
   } = useForm<FormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = data => {
+  const values = watch();
+  
+  const onSubmit: SubmitHandler<FormInputs> = async data => {
+    const { email, nickname, password } = data;
     // 실제로는 여기에서 폼 데이터를 처리하고 에러를 설정하는 로직이 들어갑니다.
 
-    // 예시: 이메일이 특정 조건을 만족하지 않으면 에러 설정
-    if (!data.email.includes("@")) {
-      setError("email", {
-        type: "manual",
-        message: "이메일 형식이 올바르지 않습니다.",
+    // api
+    try {
+      const { email, nickname, password } = data;
+  
+      // api
+      await axios.post("https://sp-taskify-api.vercel.app/2-3/users", {
+        email,
+        nickname,
+        password,
       });
-    }
-
-    // 예시: 패스워드가 특정 길이 미만이면 에러 설정
-    if (data.password.length < 8) {
-      setError("password", {
-        type: "manual",
-        message: "패스워드는 8자 이상이어야 합니다.",
-      });
+  
+      await axios.post(
+        "https://sp-taskify-api.vercel.app/2-3/auth/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+  
+      router.push('/mydashboard');
+  
+      // 예시: 이메일이 특정 조건을 만족하지 않으면 에러 설정
+      if (!data.email.includes("@")) {
+        setError("email", {
+          type: "manual",
+          message: "이메일 형식이 올바르지 않습니다.",
+        });
+      }
+  
+      // 예시: 패스워드가 특정 길이 미만이면 에러 설정
+      if (data.password.length < 8) {
+        setError("password", {
+          type: "manual",
+          message: "패스워드는 8자 이상이어야 합니다.",
+        });
+      }
+    } catch (error) {
+      // 에러 처리
+      console.error("에러 발생:", error);
+  
+      // 여기서 원하는 에러 처리 로직을 추가하면 됩니다.
     }
   };
 
@@ -101,7 +144,27 @@ export default function Signup() {
             <label htmlFor="nickname" className={clsx(styles.label)}>
               닉네임
             </label>
-            <Input className={clsx(styles.input)} id="nickname" type="text" />
+            <input
+              className={clsx(styles.input, {
+                [styles.error]: errors.nickname, // 에러가 있을 때 styles.error 클래스를 추가합니다.
+              })}
+              id="nickname"
+              type="text"
+              placeholder="닉네임을 입력해 주세요"
+              {...register("nickname", {
+                required: "닉네임을 입력해 주세요",
+                maxLength: {
+                  value: 10,
+                  message: "열 자 이하로 작성해 주세요",
+                },
+              })}
+              aria-invalid={errors.nickname ? "true" : "false"}
+            />
+            {errors.nickname && (
+              <small className={clsx(styles.errorMessage)}>
+                {errors.nickname.message}
+              </small>
+            )}
           </div>
 
           <div className={clsx(styles.wrapInput)}>
