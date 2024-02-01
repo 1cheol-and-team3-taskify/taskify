@@ -1,4 +1,3 @@
-import Input from "@/components/input/input";
 import Image from "next/image";
 import Head from "next/head";
 import styles from "@/styles/pages/Login.module.scss";
@@ -7,6 +6,7 @@ import Button from "@/components/button/baseButton/BaseButton";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { emailRegex, passwordRegex } from "@/utils/regexp";
+import Input from "@/components/input/Input";
 interface FormData {
   email: string;
   password: string;
@@ -62,7 +62,7 @@ export default function Login() {
           </label>
           <Input
             className={clsx(styles.input, {
-              [styles.error]: errors.email, // 에러가 있을 때 styles.error 클래스를 추가합니다.
+              [styles.error]: errors.email,
             })}
             type="email"
             placeholder="이메일을 입력해주세요"
@@ -85,7 +85,7 @@ export default function Login() {
           </label>
           <Input
             className={clsx(styles.input, {
-              [styles.error]: errors.password, // 에러가 있을 때 styles.error 클래스를 추가합니다.
+              [styles.error]: errors.password,
             })}
             type="password"
             placeholder="비밀번호를 입력해주세요"

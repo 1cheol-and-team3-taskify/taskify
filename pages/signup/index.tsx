@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import Input from "@/components/input/inputa";
+import Input from "@/components/input/input";
 import Image from "next/image";
 import Head from "next/head";
 import styles from "@/styles/pages/Signup.module.scss";
@@ -14,7 +14,7 @@ interface FormInputs {
   password: string;
 }
 
-export default function Login() {
+export default function Signup() {
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ export default function Login() {
   return (
     <div>
       <Head>
-        <title>Login</title>
+        <title>Signup</title>
       </Head>
       <div className={clsx(styles.body)}>
         <header className={clsx(styles.header)}>
@@ -75,36 +75,33 @@ export default function Login() {
               이메일
             </label>
             <Input
+              className={clsx(styles.input, {
+                [styles.error]: errors.email, // 에러가 있을 때 styles.error 클래스를 추가합니다.
+              })}
               id="email"
               type="email"
               placeholder="이메일을 입력하세요"
-              error="입력이 잘못되었습니다. "
-              {...register("email")}
-              // error={errors.email?.message}
-              //   pattern: {
-              //     value: emailRegex,
-              //     message: "이메일 형식으로 작성해 주세요.",
-              //   },
-              // })}
+              {...register("email", {
+                required: "이메일을 입력해주세요",
+                pattern: {
+                  value: emailRegex,
+                  message: "올바른 이메일 주소를 입력해주세요.",
+                },
+              })}
               aria-invalid={errors.email ? "true" : "false"}
             />
-            {errors.email && <small role="alert">{errors.email.message}</small>}
+            {errors.email && (
+              <small className={clsx(styles.errorMessage)}>
+                {errors.email.message}
+              </small>
+            )}
           </div>
 
-          {/* {errors.password && <div></div>} */}
-          {/* modal -> dialog | div | alert */}
           <div className={clsx(styles.wrapInput)}>
             <label htmlFor="nickname" className={clsx(styles.label)}>
               닉네임
             </label>
-            <Input
-              id="nickname"
-              type="nickname"
-              placeholder="닉네임을 입력해주세요"
-              error="입력이 잘못되었습니다. "
-              {...register("email")}
-              aria-invalid={errors.email ? "true" : "false"}
-            />
+            <Input className={clsx(styles.input)} id="nickname" type="text" />
           </div>
 
           <div className={clsx(styles.wrapInput)}>
@@ -112,14 +109,25 @@ export default function Login() {
               비밀번호
             </label>
             <Input
+              className={clsx(styles.input, {
+                [styles.error]: errors.password, // 에러가 있을 때 styles.error 클래스를 추가합니다.
+              })}
               id="password"
               type="password"
               placeholder="비밀번호를 입력하세요"
-              {...register("password")}
+              {...register("password", {
+                required: "비밀번호를 입력해 주세요",
+                minLength: {
+                  value: 8,
+                  message: "8자리 이상 입력해 주세요",
+                },
+              })}
               aria-invalid={errors.password ? "true" : "false"}
             />
             {errors.password && (
-              <small role="alert">{errors.password.message}</small>
+              <small className={clsx(styles.errorMessage)} role="alert">
+                {errors.password.message}
+              </small>
             )}
           </div>
 
@@ -128,12 +136,20 @@ export default function Login() {
               비밀번호 확인
             </label>
             <Input
+              className={clsx(styles.input, {
+                [styles.error]: errors.password, // 에러가 있을 때 styles.error 클래스를 추가합니다.
+              })}
               id="password"
               type="password"
               placeholder="비밀번호를 입력하세요"
               {...register("password")}
               aria-invalid={errors.password ? "true" : "false"}
             />
+            {errors.password && ( //api에서 수정
+              <small className={clsx(styles.errorMessage)} role="alert">
+                {errors.password.message}
+              </small>
+            )}
           </div>
 
           <div className={clsx(styles.cb)}>

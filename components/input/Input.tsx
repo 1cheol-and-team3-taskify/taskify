@@ -11,13 +11,13 @@ const eyeoff = require("@/public/input/password-off.svg");
 interface InputProps {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: "email" | "password";
+  type?: "email" | "password" | "text";
   placeholder?: string;
   //disabled?: boolean;
 }
 
 const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { type = "email", disabled = false, ...props },
+  { type = "email", ...props },
   ref,
 ) => {
   const [showPassword, setShowPassword] = React.useState(false);
