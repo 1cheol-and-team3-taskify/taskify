@@ -1,5 +1,4 @@
 import axios from "@/lib/axios";
-import { useRouter } from "next/router";
 
 /**
  * 대시보드 삭제

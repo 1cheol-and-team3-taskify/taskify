@@ -1,13 +1,13 @@
-import clsx from "clsx";
 import { useEffect, useState } from "react";
-import styles from "./InviteDashboardTable.module.scss";
-import PagingButton from "@/components/button/pagingButton/PagingButton";
 import Image from "next/image";
-import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
-import BaseButton from "@/components/button/baseButton/BaseButton";
-import { getInvitationList } from "@/api/invitations/getInvitationList";
+import clsx from "clsx";
+import styles from "./InviteDashboardTable.module.scss";
 import { GetDashboardInvitationType } from "@/types/dashboard";
+import { getInvitationList } from "@/api/invitations/getInvitationList";
 import { deleteDashboardInvitation } from "@/api/invitations/deleteInvitaionList";
+import PagingButton from "@/components/button/pagingButton/PagingButton";
+import BaseButton from "@/components/button/baseButton/BaseButton";
+import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
 
 function InviteDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);

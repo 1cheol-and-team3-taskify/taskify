@@ -10,7 +10,7 @@ export const getInvitationList = async (
 ) => {
   try {
     // const response = await axios.get(
-    //   `/api/vercel/dashboards/${dashboardId}/invitations?page=${page}&size=${size}`,
+    //   `/dashboards/${dashboardId}/invitations?page=${page}&size=${size}`,
     // );
 
     const response = await axios.get(

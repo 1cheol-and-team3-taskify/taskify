@@ -13,7 +13,7 @@ export const getMemberList = async (
 ) => {
   try {
     // const response = await axios.get(
-    //   `/api/vercel/members?page=${page}&size=${size}&dashboardId=${dashboardId}`,
+    //   `/members?page=${page}&size=${size}&dashboardId=${dashboardId}`,
     // );
 
     const response = await axios.get(

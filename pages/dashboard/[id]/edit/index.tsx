@@ -1,13 +1,13 @@
-import ReturnButton from "@/components/button/returnButton/returnButton";
-import EditDashboardTable from "@/components/table/editDashboardTable/editDashboardTable";
+import { useRouter } from "next/router";
 import clsx from "clsx";
 import styles from "@/styles/pages/DashboardEdit.module.scss";
-import MembersDashboardTable from "@/components/table/membersDashboardTable/MembersDashboardTable";
-import DeleteButton from "@/components/button/deleteButton/DeleteButton";
-import InviteDashboardTable from "@/components/table/inviteDashboardTable/InviteDashboardTable";
-import { deleteDashboard } from "@/api/dashboards/deleteDashboard";
 import { DashboardType } from "@/types/dashboard";
-import { useRouter } from "next/router";
+import { deleteDashboard } from "@/api/dashboards/deleteDashboard";
+import ReturnButton from "@/components/button/returnButton/returnButton";
+import EditDashboardTable from "@/components/table/editDashboardTable/editDashboardTable";
+import MembersDashboardTable from "@/components/table/membersDashboardTable/MembersDashboardTable";
+import InviteDashboardTable from "@/components/table/inviteDashboardTable/InviteDashboardTable";
+import DeleteButton from "@/components/button/deleteButton/DeleteButton";
 
 function DashboardEdit({ id, title }: DashboardType) {
   const router = useRouter();

@@ -1,14 +1,14 @@
-import clsx from "clsx";
-import styles from "./editDashboardTable.module.scss";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { COLORS } from "@/constants/color";
-import BaseButton from "@/components/button/baseButton/BaseButton";
-import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
+import clsx from "clsx";
+import styles from "./editDashboardTable.module.scss";
 import { DashboardType } from "@/types/dashboard";
 import { getDashboardInfo } from "@/api/dashboards/getDashboardInfo";
 import { editDashboard } from "@/api/dashboards/editDashboard";
+import { COLORS } from "@/constants/color";
+import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
+import BaseButton from "@/components/button/baseButton/BaseButton";
 
 function EditDashboardTable() {
   const [dashBoardInfo, setDashBoardInfo] = useState<DashboardType>({

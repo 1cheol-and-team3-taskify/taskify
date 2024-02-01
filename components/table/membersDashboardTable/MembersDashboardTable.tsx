@@ -1,12 +1,12 @@
-import clsx from "clsx";
-import Image from "next/image";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import clsx from "clsx";
 import styles from "./MembersDashboardTable.module.scss";
+import { GetMemberListType } from "@/types/members";
+import { getMemberList } from "@/api/members/getMemberList";
+import { deleteMember } from "@/api/members/deleteMember";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import { getMemberList } from "@/api/members/getMemberList";
-import { GetMemberListType } from "@/types/members";
-import { deleteMember } from "@/api/members/deleteMember";
 
 function MembersDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
