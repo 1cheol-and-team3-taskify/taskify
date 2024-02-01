@@ -1,4 +1,4 @@
-import convertHexToRGBA from "@/utils/convertHexToRGBA";
+import { convertHexToRGBA } from "@/utils/color";
 import styles from "./TagChips.module.scss";
 import clsx from "clsx";
 

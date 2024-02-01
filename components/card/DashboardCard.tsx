@@ -1,24 +1,38 @@
 import styles from "./DashboardCard.module.scss";
 import TagChips from "@/components/chips/TagChips";
+import { generateRandomColorHexCode } from "@/utils/color";
 
-const TEMP_IMAGE_PATH = "/temp/tempCardImage.png";
-const TEMP_PROFILE_PATH = "/temp/tempCardProfile.svg";
 const CALENDAR_ICON_PATH = "/icons/calendar.svg";
 
-const DashboardCard = () => {
+interface DashboardCardProps {
+  id: number;
+  title: string;
+  tags: string[];
+  dueDate: string;
+  profileImageUrl: string;
+  imageUrl?: string;
+}
+
+const DashboardCard = ({
+  id,
+  title,
+  tags,
+  dueDate,
+  profileImageUrl,
+  imageUrl,
+}: DashboardCardProps) => {
   return (
     <div className={styles.container}>
-      <img
-        className={styles.cardImage}
-        src={TEMP_IMAGE_PATH}
-        alt="Card Image"
-      />
+      {imageUrl && (
+        <img className={styles.cardImage} src={imageUrl} alt="Card Image" />
+      )}
       <div>
-        <div className={styles.cardTitle}>새로운 일정 관리 Taskify</div>
+        <div className={styles.cardTitle}>{title}</div>
         <div className={styles.tagsAndDates}>
           <div className={styles.tags}>
-            <TagChips tagName="백엔드" color="#D549B6" />
-            <TagChips tagName="상" color="#4981D5" />
+            {tags.map(tag => (
+              <TagChips tagName={tag} color={generateRandomColorHexCode()} />
+            ))}
           </div>
           <div className={styles.dates}>
             <img
@@ -26,13 +40,13 @@ const DashboardCard = () => {
               src={CALENDAR_ICON_PATH}
               alt="Calendar"
             />
-            <span>2022.12.31</span>
+            <span>{dueDate}</span>
           </div>
         </div>
       </div>
       <img
         className={styles.profileImage}
-        src={TEMP_PROFILE_PATH}
+        src={profileImageUrl}
         alt="Profile Image"
       />
     </div>

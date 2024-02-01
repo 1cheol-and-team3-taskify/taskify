@@ -1,4 +1,4 @@
-const convertHexToRGBA = (hexCode: string, opacity: number = 1) => {
+export const convertHexToRGBA = (hexCode: string, opacity: number = 1) => {
   let hex = hexCode.replace("#", "");
 
   if (hex.length === 3) {
@@ -16,4 +16,5 @@ const convertHexToRGBA = (hexCode: string, opacity: number = 1) => {
   return `rgba(${r},${g},${b},${opacity})`;
 };
 
-export default convertHexToRGBA;
+export const generateRandomColorHexCode = () =>
+  `#${Math.floor(Math.random() * 16777215).toString(16)}`;
