@@ -52,6 +52,7 @@ const SideMenu: React.FC<DashboardList> = () => {
           width={80}
           height={33}
           alt="taskify 로고(white theme)"
+          priority={true}
         />
       </Link>
       <div className={clsx(styles.btnWrapper)}>

@@ -23,7 +23,9 @@
 
 .manageWrapper {
   display: flex;
+  align-items: center;
   border-right: 0.1rem solid $gray-300;
+  // padding-right: 3.2rem;
 
   button {
     display: flex;
@@ -44,9 +46,24 @@
   margin-right: 4rem;
 }
 
-.invitee {
-  margin-right: 3.2rem;
-  border-radius: 99rem;
+.memberWrapper {
+  display: flex;
+  position: relative;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.8rem;
+    height: 3.8rem;
+    color: $white;
+    border: 0.2rem solid $white;
+    border-radius: 99rem;
+  }
+
+  .totalCount {
+    background-color: $pink-100;
+  }
 }
 
 .profile {

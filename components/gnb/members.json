@@ -1,55 +1,55 @@
 {
   "members": [
     {
-      "id": 0,
-      "userId": 0,
-      "email": "string",
-      "nickname": "김민희",
-      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/600px-Sunflower_sky_backdrop.jpg",
-      "createdAt": "2024-01-31T05:26:09.409Z",
-      "updatedAt": "2024-01-31T05:26:09.409Z",
-      "isOwner": true
+      "id": 3775,
+      "email": "junseong@email.com",
+      "nickname": "juncastle",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T18:04:15.734Z",
+      "updatedAt": "2024-01-31T18:04:15.734Z",
+      "isOwner": true,
+      "userId": 708
     },
     {
-      "id": 1,
-      "userId": 0,
-      "email": "string",
-      "nickname": "김성연",
-      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Red_Rose_135952.jpg/600px-Red_Rose_135952.jpg",
-      "createdAt": "2024-01-31T05:26:09.409Z",
-      "updatedAt": "2024-01-31T05:26:09.409Z",
-      "isOwner": true
+      "id": 3782,
+      "email": "test123@email.com",
+      "nickname": "test테스트",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:01:42.648Z",
+      "updatedAt": "2024-01-31T20:01:42.648Z",
+      "isOwner": false,
+      "userId": 716
     },
     {
-      "id": 2,
-      "userId": 0,
-      "email": "string",
-      "nickname": "박준성",
-      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/600px-Sunflower_sky_backdrop.jpg",
-      "createdAt": "2024-01-31T05:26:09.409Z",
-      "updatedAt": "2024-01-31T05:26:09.409Z",
-      "isOwner": true
-    },
-    {
-      "id": 3,
-      "userId": 0,
-      "email": "string",
-      "nickname": "전소은",
+      "id": 3787,
+      "email": "test123@email.com",
+      "nickname": "abc",
       "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Zinnia_elegans_01.jpg/600px-Zinnia_elegans_01.jpg",
-      "createdAt": "2024-01-31T05:26:09.409Z",
-      "updatedAt": "2024-01-31T05:26:09.409Z",
-      "isOwner": true
+      "createdAt": "2024-01-31T20:04:42.648Z",
+      "updatedAt": "2024-01-31T20:04:42.648Z",
+      "isOwner": false,
+      "userId": 724
     },
     {
-      "id": 4,
-      "userId": 0,
-      "email": "string",
-      "nickname": "이윤경",
-      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/600px-Sunflower_sky_backdrop.jpg",
-      "createdAt": "2024-01-31T05:26:09.409Z",
-      "updatedAt": "2024-01-31T05:26:09.409Z",
-      "isOwner": true
+      "id": 3792,
+      "email": "test123@email.com",
+      "nickname": "테스트",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:07:42.648Z",
+      "updatedAt": "2024-01-31T20:07:42.648Z",
+      "isOwner": false,
+      "userId": 732
+    },
+    {
+      "id": 3796,
+      "email": "test123@email.com",
+      "nickname": "good",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:10:42.648Z",
+      "updatedAt": "2024-01-31T20:10:42.648Z",
+      "isOwner": false,
+      "userId": 740
     }
   ],
-  "totalCount": 0
+  "totalCount": 5
 }
