@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import clsx from "clsx";
 import styles from "./InputDropdown.module.scss";
 import Image from "next/image";
+import ProfileImage from "../profileImage/ProfileImage";
 
 interface DropdownProps {
   assigneeData: Assignee[] | null;
@@ -47,13 +48,11 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
     <div className={clsx(styles.Container)}>
       <div className={clsx(styles.Wrapper)}>
         <div className={clsx(styles.InputContainer)}>
-          {selectedItem && (
-            <Image
-              className={clsx(styles.ProfileImg)}
-              src={selectedItem.assignee.profileImageUrl}
-              alt="프로필 이미지"
-              width={26}
-              height={26}
+          {selectedItem?.assignee && (
+            <ProfileImage
+              member={selectedItem.assignee}
+              width={28}
+              height={28}
             />
           )}
           <input
@@ -76,20 +75,6 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
             height={26}
           />
         </button>
-        {/* {selectedItem && (
-          <div key={selectedItem.assignee.id} className={clsx(styles.Assignee)}>
-            <Image
-              className={clsx(styles.ProfileImg)}
-              src={selectedItem.assignee.profileImageUrl}
-              alt="프로필 이미지"
-              width={26}
-              height={26}
-            />
-            <span className={clsx(styles.Nickname)}>
-              {selectedItem.assignee.nickname}
-            </span>
-          </div>
-        )} */}
       </div>
       {isOpen && (
         <ul>
@@ -99,13 +84,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
               onClick={() => handleMenuItemClick(item)}
             >
               <div key={item.assignee.id} className={clsx(styles.Assignee)}>
-                <Image
-                  className={clsx(styles.ProfileImg)}
-                  src={item.assignee.profileImageUrl}
-                  alt="프로필 이미지"
-                  width={26}
-                  height={26}
-                />
+                <ProfileImage member={item.assignee} width={28} height={28} />
                 <span className={clsx(styles.Nickname)}>
                   {item.assignee.nickname}
                 </span>
