@@ -54,21 +54,14 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: SignForm) => {
     try {
-      const response = await axios.post("/users", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post("/users", data);
       router.push("/login");
-
-      return Promise.resolve();
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        alert("중복된 이메일입니다.");
+      if (error.response) {
+        alert(error.response.data.message);
       } else {
         alert("회원가입 실패");
       }
-      return Promise.reject();
     }
   };
 
