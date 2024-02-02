@@ -32,6 +32,9 @@
 }
 
 .InputContainer {
+  @include flexbox;
+  gap: 1rem;
+
   width: 21.7rem;
   height: 4.8rem;
   border-radius: 0.6rem;
@@ -51,6 +54,19 @@
 
   &:hover {
     border: 0.1rem solid $violet-200;
+  }
+
+  img {
+    margin-left: 3rem;
+  }
+
+  input {
+    border: none;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 

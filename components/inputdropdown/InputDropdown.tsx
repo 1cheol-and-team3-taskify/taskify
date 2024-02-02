@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import clsx from "clsx";
 import styles from "./InputDropdown.module.scss";
@@ -31,7 +31,12 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    const { value } = event.target;
+    setSearchTerm(value);
+
+    if (selectedItem !== null) {
+      setSelectedItem(null);
+    }
   };
 
   const filteredAssigneeData = assigneeData?.filter(item =>
@@ -41,15 +46,28 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
   return (
     <div className={clsx(styles.Container)}>
       <div className={clsx(styles.Wrapper)}>
-        <input
-          className={clsx(styles.InputContainer)}
-          type="text"
-          placeholder={"이름을 입력해 주세요"}
-          onClick={toggleDropdown}
-          onChange={handleInputChange}
-          value={selectedItem?.assignee.nickname}
-        />
-        <button onClick={toggleDropdown}>
+        <div className={clsx(styles.InputContainer)}>
+          {selectedItem && (
+            <Image
+              className={clsx(styles.ProfileImg)}
+              src={selectedItem.assignee.profileImageUrl}
+              alt="프로필 이미지"
+              width={26}
+              height={26}
+            />
+          )}
+          <input
+            type="text"
+            placeholder={"이름을 입력해 주세요"}
+            onClick={toggleDropdown}
+            onChange={handleInputChange}
+            value={
+              selectedItem ? `${selectedItem?.assignee.nickname}` : searchTerm
+            }
+          />
+        </div>
+
+        <button onClick={toggleDropdown} tabIndex={-1}>
           <Image
             className={clsx(styles.Arrow, { [styles.RotateArrow]: isOpen })}
             src="/icons/arrowDropdown.svg"
