@@ -55,7 +55,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 </div>
                 <div>
                   <p>담당자</p>
-                  <InputDropdown assigneeData={null}></InputDropdown>
+                  <InputDropdown assigneeData={[]}></InputDropdown>
                 </div>
               </div>
               <div className={clsx(style.gap)}>

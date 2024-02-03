@@ -50,7 +50,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
             <div className={clsx(style.inputWrapper)}>
               <div className={clsx(style.gap)}>
                 <p>담당자</p>
-                <InputDropdown assigneeData={null}></InputDropdown>
+                <InputDropdown assigneeData={[]}></InputDropdown>
               </div>
               <div className={clsx(style.gap)}>
                 <p>
