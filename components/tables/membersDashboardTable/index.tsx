@@ -53,8 +53,12 @@ function MembersDashboardTable() {
   };
 
   const MemberListData = async (page: number) => {
-    const dashMember = await getMemberList(dashboardId, page, 4);
-    setDashMember(dashMember);
+    try {
+      const dashMember = await getMemberList(dashboardId, page, 4);
+      setDashMember(dashMember);
+    } catch (error) {
+      console.error("GET 요청 실패 :", error);
+    }
   };
 
   useEffect(() => {
