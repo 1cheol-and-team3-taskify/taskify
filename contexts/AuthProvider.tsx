@@ -8,6 +8,7 @@ import {
 import axios from "@/lib/axios";
 import { UserType } from "@/types/users";
 import { PostLoginRequestType } from "@/types/auth";
+import { useRouter } from "next/router";
 
 interface AuthContextType {
   user: UserType | null;
@@ -36,11 +37,16 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   const getMe = async () => {
-    const response = await axios.get("/users/me");
-    const data = response.data;
-    setUser(data);
+    try {
+      const response = await axios.get("/users/me");
+      const data = response.data;
+      setUser(data);
+    } catch (error) {
+      setUser(null);
+    }
   };
 
   const login = async (data: PostLoginRequestType) => {
@@ -48,9 +54,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const token = await response.data.accessToken;
     localStorage.setItem("login", token);
     await getMe();
+    router.push("/mydashboard");
   };
 
-  const logout = () => {};
+  const logout = () => {
+    localStorage.removeItem("login");
+    setUser(null);
+    router.push("/");
+  };
 
   useEffect(() => {
     getMe();
