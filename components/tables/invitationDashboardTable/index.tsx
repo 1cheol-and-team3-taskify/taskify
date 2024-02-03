@@ -4,8 +4,10 @@ import Image from "next/image";
 import clsx from "clsx";
 import styles from "./InvitationDashboardTable.module.scss";
 import { GetDashboardInvitationType } from "@/types/dashboard";
-import { getInvitationList } from "@/api/invitations";
-import { deleteDashboardInvitation } from "@/api/invitations";
+import {
+  getInvitationList,
+  deleteDashboardInvitation,
+} from "@/api/invitations";
 import Spinner from "@/components/spinner";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
