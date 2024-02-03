@@ -8,6 +8,7 @@ import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import ProfileImage from "@/components/profileImage/ProfileImage";
 import { useRouter } from "next/router";
+import Spinner from "@/components/spinner";
 
 function MembersDashboardTable() {
   const router = useRouter();
@@ -18,6 +19,7 @@ function MembersDashboardTable() {
     members: [],
     totalCount: 0,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const ITEMS_PER_PAGE = 5;
   const totalPage = Math.ceil((dashMember?.totalCount || 1) / ITEMS_PER_PAGE);
@@ -56,6 +58,7 @@ function MembersDashboardTable() {
     try {
       const dashMember = await getMemberList(dashboardId, page, 4);
       setDashMember(dashMember);
+      setIsLoading(false);
     } catch (error) {
       console.error("GET 요청 실패 :", error);
     }
@@ -69,6 +72,10 @@ function MembersDashboardTable() {
   useEffect(() => {
     MemberListData(currentPage);
   }, [dashboardId]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <form className={clsx(styles.tableForm)}>
