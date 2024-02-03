@@ -5,7 +5,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import styles from "./DashboardGnb.module.scss";
 import mockData from "./members.json";
-import { COLORS } from "@/constants/color";
+import { COLORS } from "@/constants/colors";
 
 interface member {
   id: number;
@@ -58,7 +58,7 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
   };
 
   const isDashboardRoute = /^\/(dashboard)/.test(router.pathname);
-  const isEditPage = router.pathname === "/dashboard/[id]/edit";
+  const isEditPage = router.pathname === "/mypage";
 
   function getRandomColor(): string {
     const colorKeys: (keyof Colors)[] = Object.keys(COLORS) as (keyof Colors)[];
@@ -127,7 +127,7 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
           <div className={clsx(styles.user)}>배유철</div>
           {isOpen && (
             <div className={clsx(styles.kebabModal)}>
-              <Link href="/dashboard/id/edit">
+              <Link href="/mypage">
                 <div className={clsx(styles.kebabItem)}>계정 관리</div>
               </Link>
               <div className={clsx(styles.kebabItem)} onClick={handleLogout}>
