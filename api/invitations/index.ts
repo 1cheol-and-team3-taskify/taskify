@@ -12,7 +12,7 @@ export const getInvitationList = async (
   const response = await axios.get(
     `/dashboards/${dashboardId}/invitations?page=${page}&size=${size}`,
   );
-  return response;
+  return response.data;
 };
 
 /**

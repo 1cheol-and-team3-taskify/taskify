@@ -43,8 +43,7 @@ function InvitationDashboardTable() {
   const InvitationData = async (page: number) => {
     try {
       const response = await getInvitationList(dashboardId, 5, page);
-      const responseData = response.data;
-      setInvitation(responseData);
+      setInvitation(response);
       setIsLoading(false);
     } catch (error) {
       console.error("GET 요청 실패: ", error);
