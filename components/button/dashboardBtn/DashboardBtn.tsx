@@ -2,20 +2,16 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./DashboardBtn.module.scss";
 import Image from "next/image";
+import { GetDashboardListType } from "@/types/dashboard";
 
 interface DashboardBtnProps {
-  data: Array<{
-    id: number;
-    title: string;
-    color: string;
-    createdByMe: boolean;
-  }>;
+  dashboardList: GetDashboardListType;
 }
 
-const DashboardBtn: React.FC<DashboardBtnProps> = ({ data }) => {
+const DashboardBtn: React.FC<DashboardBtnProps> = ({ dashboardList }) => {
   return (
-    <div>
-      {data.map(item => (
+    <div className={clsx(styles.gridContainer)}>
+      {dashboardList.dashboards?.map(item => (
         <div key={item.id} className={clsx(styles.dashboardBtnButton)}>
           <button>
             <div className={clsx(styles.btnContents)}>

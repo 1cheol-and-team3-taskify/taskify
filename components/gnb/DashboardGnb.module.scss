@@ -77,6 +77,18 @@
   margin-left: 3.2rem;
 }
 
+.invitee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  color: $white;
+  border: 0.2rem solid $white;
+  border-radius: 99rem;
+  margin-left: -1rem;
+}
+
 .user {
   color: $black-200;
   @include text-style-18-middle();
