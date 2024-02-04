@@ -7,21 +7,10 @@ import styles from "./DashboardGnb.module.scss";
 import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthProvider";
 import { getMyInfo } from "@/api/users";
-
-// interface member {
-//   id: number;
-//   nickname: string;
-//   profileImageUrl: string | null;
-//   createdAt: string;
-//   updatedAt: string;
-//   isOwner: boolean;
-//   userId: number;
-// }
-
-// interface DashboardGnbProps {
-//   members: member[];
-//   totalCount: number;
-// }
+import { getMemberList } from "@/api/members";
+import { getDashboardInfo } from "@/api/dashboards";
+import { UserType } from "@/types/users";
+import ProfileImage from "../profileImage/ProfileImage";
 
 interface Colors {
   GREEN: string;
@@ -31,24 +20,77 @@ interface Colors {
   PINK: string;
 }
 
+interface DashMemberType {
+  members: UserType[];
+  totalCount: number;
+}
+
 const DashboardGnb = () => {
   const { logout } = useAuth();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [myInfo, setMyInfo] = useState([]);
+  const currentDashboardId = Number(router.query.id);
 
+  const isMyPage = router.pathname === "/mypage";
+  const isDashboardRoute = /^\/dashboard/.test(router.pathname);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [myInfo, setMyInfo] = useState<{
+    nickname: string;
+    profileImageUrl: string | null;
+  }>({
+    nickname: "",
+    profileImageUrl: null,
+  });
+  const [dashMember, setDashMember] = useState<DashMemberType | undefined>();
+  const [dashboardTitle, setDashboardTitle] = useState<{ title: string }>({
+    title: "",
+  });
+
+  //api
   const getMyInfoData = async () => {
     try {
       const response = await getMyInfo();
       setMyInfo(response);
     } catch (error) {
-      console.error("GET 요청 실패: ", error);
+      console.error("내 정보 불러오기 실패", error);
+    }
+  };
+
+  const MemberListData = async (dashboardId: number) => {
+    try {
+      const dashMemberData = await getMemberList(dashboardId);
+      setDashMember(dashMemberData);
+    } catch (error) {
+      console.error("멤버 목록 불러오기 실패", error);
+    }
+  };
+
+  const DashboardTitleData = async (dashboardId: number) => {
+    try {
+      const response = await getDashboardInfo(dashboardId);
+      setDashboardTitle(response);
+    } catch (error) {
+      console.error("대시보드 타이틀 불러오기 실패", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      await Promise.all([
+        MemberListData(currentDashboardId),
+        DashboardTitleData(currentDashboardId),
+      ]);
+    } catch (error) {
+      console.error("데이터 불러오기 실패", error);
     }
   };
 
   useEffect(() => {
     getMyInfoData();
-  }, []);
+    if (currentDashboardId) {
+      fetchData();
+    }
+  }, [currentDashboardId]);
 
   const handleKebab = () => {
     setIsOpen(!isOpen);
@@ -58,20 +100,21 @@ const DashboardGnb = () => {
     logout();
   };
 
-  const isDashboardRoute = /^\/(dashboard)/.test(router.pathname);
-  const isMyPage = router.pathname === "/mypage";
-
-  function getRandomColor(): string {
+  const getRandomColor = (): string => {
     const colorKeys: (keyof Colors)[] = Object.keys(COLORS) as (keyof Colors)[];
     const randomIndex = Math.floor(Math.random() * colorKeys.length);
     const selectedColorKey = colorKeys[randomIndex];
     return COLORS[selectedColorKey];
-  }
+  };
 
   return (
     <div className={clsx(styles.gnb)}>
       <div className={clsx(styles.dashboardTitle)}>
-        {isMyPage ? "계정 관리" : "내 대시보드"}
+        {isDashboardRoute
+          ? `${dashboardTitle.title}`
+          : isMyPage
+            ? "계정 관리"
+            : "내 대시보드"}
       </div>
       <div className={clsx(styles.wrapper)}>
         {isDashboardRoute && (
@@ -94,8 +137,8 @@ const DashboardGnb = () => {
               />
               <span>초대하기</span>
             </button>
-            {/* <div className={clsx(styles.memberWrapper)}>
-              {data?.members.slice(0, 4).map(member => (
+            <div className={clsx(styles.memberWrapper)}>
+              {dashMember?.members.slice(0, 4).map(member => (
                 <div
                   key={member.id}
                   className={clsx(styles.invitee)}
@@ -109,28 +152,17 @@ const DashboardGnb = () => {
                   {member.nickname.charAt(0).toUpperCase()}
                 </div>
               ))}
-              {(data?.members?.length || 0) > 4 &&
-                data?.totalCount !== undefined && (
+              {(dashMember?.members.length || 0) > 4 &&
+                dashMember?.totalCount !== undefined && (
                   <div className={clsx(styles.totalCount)}>
-                    +{data.totalCount - 4}
+                    +{dashMember.totalCount - 4}
                   </div>
                 )}
-            </div> */}
+            </div>
           </div>
         )}
         <div className={clsx(styles.profile)} onClick={handleKebab}>
-          <div
-            key={myInfo?.id}
-            className={clsx(styles.invitee)}
-            style={{
-              backgroundImage: myInfo?.profileImageUrl
-                ? `url(${myInfo?.profileImageUrl})`
-                : "none",
-              backgroundColor: getRandomColor(),
-            }}
-          >
-            {myInfo?.nickname?.charAt(0).toUpperCase()}
-          </div>
+          <ProfileImage member={myInfo} width={38} height={38} />
           <div className={clsx(styles.user)}>
             {myInfo.nickname && myInfo.nickname.length > 3
               ? myInfo.nickname.substring(0, 4)

@@ -76,22 +76,24 @@ const SideMenu: React.FC<DashboardBtnProps> = () => {
           />
         </Link>
       </div>
-      {dashboardList.dashboards?.map(item => (
-        <div key={item.id} className={clsx(styles.dashboardListWrapper)}>
-          <div
-            className={clsx(styles.dashboardColor)}
-            style={{ backgroundColor: item.color }}
-          ></div>
-          <span className={clsx(styles.dashboardList)}>{item.title}</span>
-          {item.createdByMe && (
-            <Image
-              src="/button-icon/crown_icon.png"
-              alt="왕관 아이콘"
-              width={17}
-              height={14}
-            />
-          )}
-        </div>
+      {dashboardList.dashboards.map(item => (
+        <Link href={`/dashboard/${item.id}`}>
+          <div key={item.id} className={clsx(styles.dashboardListWrapper)}>
+            <div
+              className={clsx(styles.dashboardColor)}
+              style={{ backgroundColor: item.color }}
+            ></div>
+            <span className={clsx(styles.dashboardList)}>{item.title}</span>
+            {item.createdByMe && (
+              <Image
+                src="/button-icon/crown_icon.png"
+                alt="왕관 아이콘"
+                width={17}
+                height={14}
+              />
+            )}
+          </div>
+        </Link>
       ))}
       <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
       <PagingButton
