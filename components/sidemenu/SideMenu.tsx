@@ -95,18 +95,20 @@ const SideMenu: React.FC<DashboardBtnProps> = () => {
           </div>
         </Link>
       ))}
-      <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
-      <PagingButton
-        onClick={{
-          left: handleLeftButtonClick,
-          right: handleRightButtonClick,
-        }}
-        disabled={{
-          left: currentPage === 1,
-          right: currentPage === totalPage,
-        }}
-        small
-      />
+      <div className={clsx(styles.pageBtnWrapper)}>
+        <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+        <PagingButton
+          onClick={{
+            left: handleLeftButtonClick,
+            right: handleRightButtonClick,
+          }}
+          disabled={{
+            left: currentPage === 1,
+            right: currentPage === totalPage,
+          }}
+          small
+        />
+      </div>
     </div>
   );
 };

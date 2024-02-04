@@ -50,23 +50,23 @@ function MyDashboard() {
 
   return (
     <div className={clsx(styles.bg)}>
-      <div className={clsx(styles.listContainer)}>
-        <div className={clsx(styles.listWrapper)}>
-          <PlusBtn textStyle={"colum16"}>새로운 대시보드</PlusBtn>
-          <DashboardBtn dashboardList={dashboardList} />
+      <div className={clsx(styles.container)}>
+        <PlusBtn textStyle={"colum16"}>새로운 대시보드</PlusBtn>
+        <DashboardBtn dashboardList={dashboardList} />
+        <div className={clsx(styles.pageBtnWrapper)}>
+          <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+          <PagingButton
+            onClick={{
+              left: handleLeftButtonClick,
+              right: handleRightButtonClick,
+            }}
+            disabled={{
+              left: currentPage === 1,
+              right: currentPage === totalPage,
+            }}
+            small
+          />
         </div>
-        <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
-        <PagingButton
-          onClick={{
-            left: handleLeftButtonClick,
-            right: handleRightButtonClick,
-          }}
-          disabled={{
-            left: currentPage === 1,
-            right: currentPage === totalPage,
-          }}
-          small
-        />
       </div>
       {/* <MyInvitedDashboardTable
         totalCount={mockInvitations.totalCount}
