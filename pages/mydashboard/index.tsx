@@ -12,6 +12,9 @@ import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 
 function MyDashboard() {
+  const mappedMockInvitations = mapInvitations(
+    mockInvitations as InitialInvitations,
+  );
   const [dashboardList, setDashboardList] = useState<GetDashboardListType>({
     totalCount: 0,
     cursorId: 0,
@@ -68,10 +71,11 @@ function MyDashboard() {
           />
         </div>
       </div>
-      {/* <MyInvitedDashboardTable
+      
+      <MyInvitedDashboardTable
         totalCount={mockInvitations.totalCount}
-        invitations={}
-      /> */}
+        invitations={mappedMockInvitations}
+      />
     </div>
   );
 }
