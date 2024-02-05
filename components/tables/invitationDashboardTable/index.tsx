@@ -114,7 +114,7 @@ function InvitationDashboardTable() {
                     height={16}
                     alt="add image"
                   />
-                  {"초대하기"}
+                  초대하기
                 </div>
               </BaseButton>
               {isOpen && <InviteModal setModal={setIsOpen} />}
