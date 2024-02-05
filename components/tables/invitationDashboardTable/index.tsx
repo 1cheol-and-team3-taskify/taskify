@@ -117,7 +117,7 @@ function InvitationDashboardTable() {
                   {"초대하기"}
                 </div>
               </BaseButton>
-              {isOpen && <InviteModal setIsOpen={setIsOpen} />}
+              {isOpen && <InviteModal setModal={setIsOpen} />}
             </div>
           </div>
         </div>

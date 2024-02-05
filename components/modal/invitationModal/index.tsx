@@ -15,10 +15,10 @@ import BaseButton from "@/components/button/baseButton/BaseButton";
 import { useRouter } from "next/router";
 
 interface InviteModalProps {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setModal: Dispatch<SetStateAction<boolean>>;
 }
 
-function InviteModal({ setIsOpen }: InviteModalProps) {
+function InviteModal({ setModal }: InviteModalProps) {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
@@ -29,6 +29,10 @@ function InviteModal({ setIsOpen }: InviteModalProps) {
     formState: { errors },
   } = useForm({ mode: "onBlur" });
   const email = watch("email");
+
+  const disableModal = () => {
+    setModal(false);
+  };
 
   const handleInviteClick = async (e: FormEvent) => {
     if (e) e.preventDefault();
@@ -50,7 +54,7 @@ function InviteModal({ setIsOpen }: InviteModalProps) {
         if (confirmed) {
           try {
             await inviteDashboard(dashboardId, { email });
-            setIsOpen(false);
+            disableModal;
           } catch (error) {
             setError("email", {
               message: "이메일을 확인해주세요.",
@@ -64,7 +68,7 @@ function InviteModal({ setIsOpen }: InviteModalProps) {
   return (
     <ModalPortal>
       <form onSubmit={handleInviteClick}>
-        <ModalContainer setIsOpen={setIsOpen}>
+        <ModalContainer setIsOpen={setModal}>
           <div className={clsx(style.modalWrapper)}>
             <h1>초대하기</h1>
             <div className={clsx(style.emailWrapper)}>
@@ -84,12 +88,7 @@ function InviteModal({ setIsOpen }: InviteModalProps) {
             </div>
           </div>
           <div className={clsx(style.buttons)}>
-            <BaseButton
-              type="button"
-              onClick={() => setIsOpen(false)}
-              small
-              white
-            >
+            <BaseButton type="button" onClick={disableModal} small white>
               취소
             </BaseButton>
             <BaseButton type="submit" small>
