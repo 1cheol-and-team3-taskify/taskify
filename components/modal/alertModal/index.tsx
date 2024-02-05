@@ -7,11 +7,17 @@ import ModalPortal from "../ModalPortal";
 
 interface AlertModalProps {
   setModal: Dispatch<SetStateAction<boolean>>;
-  children: ReactNode;
+  alertMessage: string;
+  confirmMessage: string;
   isCancelButton?: boolean;
 }
 
-function AlertModal({ setModal, isCancelButton, children }: AlertModalProps) {
+function AlertModal({
+  setModal,
+  alertMessage,
+  confirmMessage,
+  isCancelButton,
+}: AlertModalProps) {
   const disableModal = () => {
     setModal(false);
   };
@@ -20,10 +26,10 @@ function AlertModal({ setModal, isCancelButton, children }: AlertModalProps) {
     <ModalPortal>
       <ModalContainer setIsOpen={setModal}>
         <div className={clsx(styles.modal)}>
-          {children}
+          {alertMessage}
           <div className={clsx(styles.buttons)}>
             {isCancelButton && <BaseButton white>취소</BaseButton>}
-            <BaseButton onClick={disableModal}>확인</BaseButton>
+            <BaseButton onClick={disableModal}>{confirmMessage}</BaseButton>
           </div>
         </div>
       </ModalContainer>
