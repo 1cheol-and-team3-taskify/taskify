@@ -13,6 +13,7 @@ const Dashboard = () => {
   const currentDashboardId = Number(router.query.id);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [columnData, setColumnData] = useState<ColumnDataType>();
+  const [currentId, setCurrentId] = useState<number>(0);
 
   const ColumnListData = async (dashboardId: number) => {
     try {
@@ -25,6 +26,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     ColumnListData(currentDashboardId);
+    setCurrentId(currentDashboardId);
   }, [currentDashboardId]);
 
   const openModal = () => {
@@ -42,7 +44,9 @@ const Dashboard = () => {
             새로운 컬럼 추가하기
           </PlusBtn>
         </div>
-        {isOpen && <ColumnAddModal setIsOpen={setIsOpen} />}
+        {isOpen && (
+          <ColumnAddModal setIsOpen={setIsOpen} currentId={currentId} />
+        )}
       </div>
     </div>
   );
