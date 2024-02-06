@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import ModalContainer from "@/components/modal/ModalContainer";
 import clsx from "clsx";
 import styles from "./alertModal.module.scss";
@@ -8,15 +8,17 @@ import ModalPortal from "../ModalPortal";
 interface AlertModalProps {
   setModal: Dispatch<SetStateAction<boolean>>;
   alertMessage: string;
-  confirmMessage: string;
+  confirmButton?: string;
   isCancelButton?: boolean;
+  onConfirmClick?: () => void;
 }
 
 function AlertModal({
   setModal,
   alertMessage,
-  confirmMessage,
+  confirmButton = "확인",
   isCancelButton,
+  onConfirmClick,
 }: AlertModalProps) {
   const disableModal = () => {
     setModal(false);
@@ -28,8 +30,12 @@ function AlertModal({
         <div className={clsx(styles.modal)}>
           {alertMessage}
           <div className={clsx(styles.buttons)}>
-            {isCancelButton && <BaseButton white>취소</BaseButton>}
-            <BaseButton onClick={disableModal}>{confirmMessage}</BaseButton>
+            {isCancelButton && (
+              <BaseButton onClick={disableModal} white>
+                취소
+              </BaseButton>
+            )}
+            <BaseButton onClick={onConfirmClick}>{confirmButton}</BaseButton>
           </div>
         </div>
       </ModalContainer>
