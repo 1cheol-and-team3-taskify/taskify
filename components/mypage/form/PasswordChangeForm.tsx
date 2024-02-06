@@ -17,19 +17,24 @@ function PasswordChangeForm() {
     setValue,
   } = useForm<FieldValues>({ mode: "onBlur" });
   const passwordInputs = ["password", "newPassword", "newPasswordCheck"];
+  const password = watch("password");
   const newPassword = watch("newPassword");
+  const netPasswordCheck = watch("newPasswordCheck");
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const oepnAlertModal = () => {
+  const openAlertModal = (error: string) => {
     setIsAlertOpen(true);
+    setErrorMessage(error);
   };
   const closeAlertModal = () => {
     setIsAlertOpen(false);
+    setErrorMessage("");
   };
 
-  const oepnConfirmModal = () => {
+  const openConfirmModal = () => {
     setIsConfirmOpen(true);
   };
   const closeConfirmModal = () => {
@@ -39,21 +44,22 @@ function PasswordChangeForm() {
   const handleChangeButtonClick = async () => {
     try {
       await handleSubmit(async data => {
-        const response = await editPassword({
+        await editPassword({
           password: data.password,
           newPassword: data.newPassword,
         });
-        if (response.status === 400) {
-          oepnAlertModal();
-        } else {
-          oepnConfirmModal();
-          setValue("password", "");
-          setValue("newPassword", "");
-          setValue("newPasswordCheck", "");
-        }
+        openConfirmModal();
+        setValue("password", "");
+        setValue("newPassword", "");
+        setValue("newPasswordCheck", "");
       })();
-    } catch (error) {
-      console.error("데이터 처리 중 에러:", error);
+    } catch (error: any) {
+      if (error.response) {
+        openAlertModal(error.response.data.message);
+        setValue("password", "");
+        setValue("newPassword", "");
+        setValue("newPasswordCheck", "");
+      }
     }
   };
 
@@ -81,25 +87,25 @@ function PasswordChangeForm() {
         }
       });
     };
-  }, [watch]);
+  }, [watch, newPassword]);
 
   return (
     <>
-      {isAlertOpen && (
-        <AlertModal
-          setModal={setIsAlertOpen}
-          alertMessage="현재 비밀번호가 틀렸습니다."
-          onConfirmClick={closeAlertModal}
-        />
-      )}
-      {isConfirmOpen && (
-        <AlertModal
-          setModal={setIsConfirmOpen}
-          alertMessage="비밀번호가 변경되었습니다."
-          onConfirmClick={closeConfirmModal}
-        />
-      )}
       <form onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}>
+        {isAlertOpen && (
+          <AlertModal
+            setModal={setIsAlertOpen}
+            alertMessage={errorMessage}
+            onConfirmClick={closeAlertModal}
+          />
+        )}
+        {isConfirmOpen && (
+          <AlertModal
+            setModal={setIsConfirmOpen}
+            alertMessage="비밀번호가 변경되었습니다."
+            onConfirmClick={closeConfirmModal}
+          />
+        )}
         <div className={clsx(styles.inputs)}>
           <AuthInput
             label="현재 비밀번호"
