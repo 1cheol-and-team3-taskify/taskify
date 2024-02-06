@@ -12,15 +12,13 @@ function PasswordChangeForm() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors, isSubmitted },
+    formState: { errors, isSubmitted },
     watch,
     setValue,
   } = useForm<FieldValues>({ mode: "onBlur" });
-  const passwordInputs = ["password", "newPassword", "newPasswordCheck"];
   const password = watch("password");
   const newPassword = watch("newPassword");
-  const netPasswordCheck = watch("newPasswordCheck");
-  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const newPasswordCheck = watch("newPasswordCheck");
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -62,32 +60,6 @@ function PasswordChangeForm() {
       }
     }
   };
-
-  useEffect(() => {
-    const inputChangeHandler = () => {
-      const areInputsValid = passwordInputs.every(id => {
-        const inputElement = document.getElementById(id) as HTMLInputElement;
-        return inputElement && inputElement.value.trim() !== "";
-      });
-      setButtonDisabled(!areInputsValid);
-    };
-
-    passwordInputs.forEach(id => {
-      const inputElement = document.getElementById(id);
-      if (inputElement) {
-        inputElement.addEventListener("input", inputChangeHandler, false);
-      }
-    });
-
-    return () => {
-      passwordInputs.forEach(id => {
-        const inputElement = document.getElementById(id);
-        if (inputElement) {
-          inputElement.removeEventListener("input", inputChangeHandler);
-        }
-      });
-    };
-  }, [watch, newPassword]);
 
   return (
     <>
@@ -176,7 +148,7 @@ function PasswordChangeForm() {
             <BaseButton
               small
               onClick={() => handleChangeButtonClick()}
-              disabled={isSubmitting || isButtonDisabled}
+              disabled={!password || !newPassword || !newPasswordCheck}
             >
               변경
             </BaseButton>
