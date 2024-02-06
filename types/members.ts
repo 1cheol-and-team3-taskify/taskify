@@ -13,3 +13,8 @@ export interface GetMemberListType {
   members: MemberListType[];
   totalCount: number;
 }
+
+export interface DeleteMemberType {
+  id: number;
+  nickname: string;
+}
