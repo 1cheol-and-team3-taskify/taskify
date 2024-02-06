@@ -75,7 +75,7 @@ function InvitationDashboardTable() {
   const handleCancelInvitation = async (invitationId: number) => {
     try {
       await deleteDashboardInvitation(dashboardId, invitationId);
-      setSelectedInvitaton({ nickname: "", id: 0 });
+      setSelectedInvitaton({ id: 0, nickname: "" });
       closeAlertModal();
       InvitationData(currentPage);
     } catch (error) {
