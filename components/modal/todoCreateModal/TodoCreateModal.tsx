@@ -17,8 +17,6 @@ import AddImage from "@/components/mypage/AddImage";
 import Calendar from "@/components/datepicker/Calendar";
 import { TodoCreateType } from "@/types/cards";
 
-import useForm from "react-hook-form";
-
 interface TodoCreateModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -35,19 +33,19 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  const handleTitleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const { value } = event.target;
-    setTitle(value);
-  };
+  // const handleTitleInputChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   const { value } = event.target;
+  //   setTitle(value);
+  // };
 
-  const handleTextareaInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    const { value } = event.target;
-    setDescription(value);
-  };
+  // const handleTextareaInputChange = (
+  //   event: React.ChangeEvent<HTMLTextAreaElement>,
+  // ) => {
+  //   const { value } = event.target;
+  //   setDescription(value);
+  // };
 
   const handleButtonClick = (event: any) => {
     setFormState(event.target.value);
@@ -75,9 +73,8 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 </p>
                 <input
                   className={clsx(styles.input)}
-                  key="title"
                   placeholder="제목을 입력해 주세요"
-                  onChange={handleTitleInputChange}
+                  // onChange={handleTitleInputChange}
                 />
               </div>
               <div className={clsx(styles.gap)}>
@@ -86,11 +83,10 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 </p>
                 <textarea
                   className={clsx(styles.input)}
-                  key="description"
                   rows={5}
                   cols={40}
                   placeholder="설명을 입력해 주세요"
-                  onChange={handleTextareaInputChange}
+                  // onChange={handleTextareaInputChange}
                 />
               </div>
               <div className={clsx(styles.gap)}>
@@ -105,17 +101,13 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 />
                 <input
                   className={clsx(styles.input)}
-                  key="tag"
                   placeholder="입력 후 Enter"
                 />
               </div>
               <div className={clsx(styles.gap)}>
                 <p>이미지</p>
                 <div className={clsx(styles.img)}>
-                  <AddImage
-                    key="image"
-                    profileImageUrl={"@/public/icons/calendar.svg"}
-                  />
+                  <AddImage profileImageUrl={formState.imageUrl} />
                 </div>
               </div>
             </div>
