@@ -55,8 +55,6 @@ const InputDropdown = () => {
     MemberListData();
   }, [dashboardId]);
 
-  console.log(getMember);
-
   return (
     <div className={clsx(styles.Container)}>
       <div className={clsx(styles.Wrapper)}>
