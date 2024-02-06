@@ -57,7 +57,6 @@ function MembersDashboardTable() {
       await deleteMember(memberId);
       setSelectedMember({ id: 0, nickname: "" });
       closeModal();
-
       MemberListData(currentPage);
     } catch (error) {
       console.error("멤버 삭제에 실패했습니다.", error);
