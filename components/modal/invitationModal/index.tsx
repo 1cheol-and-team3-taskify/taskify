@@ -1,16 +1,12 @@
 import ModalContainer from "../ModalContainer";
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import style from "./InvitationModal.module.scss";
 import AuthInput from "@/components/input/AuthInput";
 import { useForm } from "react-hook-form";
 import { regEmail } from "@/utils/regexp";
-import {
-  checkEmailExists,
-  getInvitationList,
-  inviteDashboard,
-} from "@/api/invitations";
+import { checkEmailExists, inviteDashboard } from "@/api/invitations";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import { useRouter } from "next/router";
 
@@ -18,7 +14,7 @@ interface InviteModalProps {
   setModal: Dispatch<SetStateAction<boolean>>;
 }
 
-function InviteModal({ setModal }: InviteModalProps) {
+function InvitationModal({ setModal }: InviteModalProps) {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
@@ -30,36 +26,32 @@ function InviteModal({ setModal }: InviteModalProps) {
   } = useForm({ mode: "onBlur" });
   const email = watch("email");
 
-  const disableModal = () => {
+  const closeModal = () => {
     setModal(false);
   };
 
   const handleInviteClick = async (e: FormEvent) => {
-    if (e) e.preventDefault();
-
-    if (!email) {
-      alert("이메일을 입력해 주세요.");
-    } else {
+    if (e) {
+      e.preventDefault();
+    }
+    if (email) {
       const emailExists = await checkEmailExists(dashboardId);
       const invitationExists = emailExists.invitations.some(
         (invitation: { invitee: { email: string } }) =>
           invitation.invitee.email === email,
       );
-
       if (invitationExists) {
-        alert("이미 등록된 이메일입니다. 다른 이메일을 사용해주세요.");
+        setError("email", {
+          message: "이미 등록된 이메일입니다. 다른 이메일을 사용해주세요.",
+        });
       } else {
-        const confirmed = window.confirm(`${email}님을 초대하시겠습니까?`);
-        console.log(emailExists);
-        if (confirmed) {
-          try {
-            await inviteDashboard(dashboardId, { email });
-            disableModal;
-          } catch (error) {
-            setError("email", {
-              message: "이메일을 확인해주세요.",
-            });
-          }
+        try {
+          await inviteDashboard(dashboardId, { email });
+          closeModal();
+        } catch (error) {
+          setError("email", {
+            message: "이메일을 확인해주세요.",
+          });
         }
       }
     }
@@ -88,7 +80,7 @@ function InviteModal({ setModal }: InviteModalProps) {
             </div>
           </div>
           <div className={clsx(style.buttons)}>
-            <BaseButton type="button" onClick={disableModal} small white>
+            <BaseButton type="button" onClick={closeModal} small white>
               취소
             </BaseButton>
             <BaseButton type="submit" small>
@@ -101,4 +93,4 @@ function InviteModal({ setModal }: InviteModalProps) {
   );
 }
 
-export default InviteModal;
+export default InvitationModal;
