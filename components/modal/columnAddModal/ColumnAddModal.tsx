@@ -13,49 +13,45 @@ import style from "./ColumnAddModal.module.scss";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import axios from "@/lib/axios";
 import { PostcolumnsAddData } from "@/types/columns";
+import { useRouter } from "next/router";
 interface ColumnAddModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
+  const router = useRouter();
+  const { id } = router.query;
+  const dashboardId = Number(id);
   const [errorMsg, setErrorMsg] = useState("");
-  const [columnName, setColumnName] = useState("");
 
-  const [title, setTitle] = useState<PostcolumnsAddData>({
+  const [columnName, setColumnName] = useState<PostcolumnsAddData>({
     title: "",
   });
 
-  useEffect(() => {
-    const postColumnsAdd = async () => {
-      try {
-        const response = await axios.post(""); //엔드포인트 입력
-        const { title } = response.data;
-        setColumnName({ title }); //???
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    postColumnsAdd();
-  }, []);
+  const postColumnsAdd = async (title: string, dashboardId: number) => {
+    const response = await axios.post("/columns", {
+      title,
+      dashboardId,
+    });
+    return response.data;
+  };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setColumnName(event.target.value);
+    const { value } = event.target;
+    setColumnName({ title: value });
   };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    // columnName 값을 사용하여 폼 제출을 처리하는 로직을 추가
-    // 예를 들어, axios를 사용하여 API 호출 등을 수행할 수 있습니다.
-
-    // 제출 후 입력 값 초기화
-    setColumnName("");
-
-    // 모달 닫기
-    setIsOpen(false);
+    try {
+      postColumnsAdd(columnName.title, 3066); //dashboardId는 dashborad에서 받아와야함.
+      setIsOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const isCreateButtonDisabled = columnName.trim() === "";
+  const isCreateButtonDisabled = columnName.title === "";
 
   return (
     <ModalPortal>
@@ -69,7 +65,7 @@ function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
                 className={clsx(style.nameInput)}
                 type="text"
                 placeholder="새로운 프로젝트"
-                value={columnName}
+                value={columnName.title}
                 onChange={handleInputChange}
               />
             </div>

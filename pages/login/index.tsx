@@ -31,11 +31,6 @@ const index = () => {
       </Head>
       <div className={clsx(styles.body)}>
         <header className={clsx(styles.header)}>
-          <ColumnAddModal
-            setIsOpen={function (value: SetStateAction<boolean>): void {
-              throw new Error("Function not implemented.");
-            }}
-          ></ColumnAddModal>
           <Link href="/">
             <div className={clsx(styles.wrapHeader)}>
               <Image

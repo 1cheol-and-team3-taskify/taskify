@@ -6,8 +6,12 @@ import PlusBtn from "@/components/button/plusBtn/PlusBtn";
 import styles from "@/styles/pages/Mydashboard.module.scss";
 import clsx from "clsx";
 import { useAuth } from "@/contexts/AuthProvider";
+import ColumnAddModal from "@/components/modal/columnAddModal/ColumnAddModal";
+import { SetStateAction, useState } from "react";
+import TodoCreateModal from "@/components/modal/todoCreateModal/TodoCreateModal";
 
 function MyDashboard() {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const mappedMockInvitations = mapInvitations(
     mockInvitations as InitialInvitations,
   );
@@ -18,6 +22,8 @@ function MyDashboard() {
 
   return (
     <div className={clsx(styles.bg)}>
+      {/* {isOpen && <ColumnAddModal setIsOpen={setIsOpen}></ColumnAddModal>} */}
+      <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal>
       <PlusBtn textStyle={"colum16"}>새로운 대시보드</PlusBtn>
       <button
         style={{ backgroundColor: "lightgray", fontSize: "14px" }}
