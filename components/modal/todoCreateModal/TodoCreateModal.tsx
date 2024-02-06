@@ -9,47 +9,47 @@ import {
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import style from "./TodoCreateModal.module.scss";
-// import Input from "@/components/input/Input";
 import TagChips from "@/components/chips/TagChips";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import Dropdown from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
-import InputDropdown from "@/components/inputdropdown/InputDropdown";
+import InputDropdown from "@/components/inputDropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 import Calendar from "@/components/datepicker/Calendar";
-import { TodoEditType } from "@/types/cards";
+import { TodoCreateType } from "@/types/cards";
+
 interface TodoCreateModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
-  const handleTodoCreateClick = async (event?: FormEvent) => {
-    if (event) event.preventDefault(); // 제출 동작 막음
-  };
-  //
-  const [formState, setFormState] = useState<TodoEditType>({
+  const [formState, setFormState] = useState<TodoCreateType>({
     title: "",
     description: "",
     tags: [],
     dueDate: "",
-    assignee: { nickname: "" },
+    assignee: [],
     imageUrl: "",
   });
+
   const handleButtonClick = (event: any) => {
     setFormState(event.target.value);
     //추가적인 api 호출작업
   };
 
+  const handleTodoCreateClick = async (event?: FormEvent) => {
+    if (event) event.preventDefault();
+  };
+
   return (
     <ModalPortal>
-      <form onSubmit={handleTodoCreateClick}>
-        <ModalContainer setIsOpen={setIsOpen}>
+      <ModalContainer setIsOpen={setIsOpen}>
+        <form onSubmit={handleTodoCreateClick}>
           <div className={clsx(style.modalWrapper)}>
             <h1>할 일 생성</h1>
             <div className={clsx(style.inputWrapper)}>
               <div className={clsx(style.gap)}>
                 <p>담당자</p>
-                <InputDropdown assigneeData={[]}></InputDropdown>
+                <InputDropdown />
               </div>
               <div className={clsx(style.gap)}>
                 <p>
@@ -87,10 +87,10 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 <input
                   className={clsx(style.input)}
                   placeholder="입력 후 Enter"
-                ></input>
+                />
               </div>
               <div className={clsx(style.gap)}>
-                <p> 이미지 </p>
+                <p>이미지</p>
                 <div className={clsx(style.img)}>
                   <AddImage profileImageUrl={"@/public/icons/calendar.svg"} />
                 </div>
@@ -109,7 +109,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 type="submit"
                 small
                 disabled={
-                  !formState.assignee.nickname ||
+                  // !formState.assignee.nickname ||
                   !formState.title ||
                   !formState.description ||
                   !formState.dueDate ||
@@ -122,8 +122,8 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
               </BaseButton>
             </div>
           </div>
-        </ModalContainer>
-      </form>
+        </form>
+      </ModalContainer>
     </ModalPortal>
   );
 }
