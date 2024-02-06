@@ -1,0 +1,23 @@
+.wrapper {
+  @include flexbox(start, center);
+  gap: 1rem;
+}
+
+.button {
+  width: 8.4rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+  @include flexbox();
+  @include text-style-14-middle();
+}
+
+.accept {
+  background-color: $violet-200;
+  color: $white;
+}
+
+.deny {
+  color: $violet-200;
+  background-color: $white;
+  border: 1px solid $gray-300;
+}
