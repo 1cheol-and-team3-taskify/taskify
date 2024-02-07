@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import Image from "next/image";
-import axios from "@/lib/axios";
 import clsx from "clsx";
 import ModalContainer from "../ModalContainer";
 import ModalPortal from "../ModalPortal";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import { postComments, getComments } from "@/api/comments";
+import { putComments, deleteComments, getComments } from "@/api/comments";
 import { CardPropsType } from "@/types/cards";
 import { Comment, Content } from "@/types/comments";
 import { Time } from "@/utils/time";
 import { COLORS } from "@/constants/colors";
 import styles from "./CardModale.module.scss";
-import Link from "next/link";
+import axios from "@/lib/axios";
 
 interface CardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -32,12 +32,22 @@ interface Colors {
 }
 
 const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
+  const { register, handleSubmit, reset } = useForm<CommentForm>({
+    mode: "onBlur",
+  });
   const currentCardId = Number(cardProps.id);
   const [isComment, setIsComment] = useState<Comment>();
 
-  const postCommentData = async (data: string) => {
+  const onSubmit = async (data: any) => {
     try {
-      await axios.post("/comments", { content: data });
+      const response = await axios.post("/comments", {
+        content: data.comment,
+        cardId: cardProps.id,
+        columnId: cardProps.columnId,
+        dashboardId: cardProps.dashboardId,
+      });
+      getCommentData(10, currentCardId);
+      reset();
     } catch (error) {
       console.error("댓글 작성 실패", error);
     }
@@ -49,6 +59,23 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
       setIsComment(response);
     } catch (error) {
       console.error("댓글 불러오기 실패", error);
+    }
+  };
+  const putCommentData = async (commentId: number) => {
+    try {
+      await putComments(commentId);
+      getCommentData(10, currentCardId);
+    } catch (error) {
+      console.error("댓글 수정 실패");
+    }
+  };
+
+  const deleteCommentData = async (commentId: number) => {
+    try {
+      await deleteComments(commentId);
+      getCommentData(10, currentCardId);
+    } catch (error) {
+      console.error("댓글 삭제 실패");
     }
   };
 
@@ -79,9 +106,13 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
               width={450}
               height={263}
             />
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <label>댓글</label>
-              <input type="text" placeholder="댓글 작성하기" />
+              <input
+                type="text"
+                placeholder="댓글 작성하기"
+                {...register("comment")}
+              />
               <BaseButton type="submit">입력</BaseButton>
             </form>
             <div>
@@ -100,6 +131,8 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
                   <div>{comment.author.nickname}</div>
                   <div>{Time(`${comment.updatedAt}`)}</div>
                   <div>{comment.content}</div>
+                  <div>수정</div>
+                  <div onClick={() => deleteCommentData(comment.id)}>삭제</div>
                 </div>
               ))}
             </div>
@@ -130,11 +163,11 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
               <span>{Time(`${cardProps.dueDate}`)}</span>
             </div>
           </div>
-        <div className={clsx(styles.kebabModal)}>
-          케밥버튼
-          <div className={clsx(styles.kebabItem)}>수정하기</div>
-          <div className={clsx(styles.kebabItem)}>삭제하기</div>
-        </div>
+          <div className={clsx(styles.kebabModal)}>
+            케밥버튼
+            <div className={clsx(styles.kebabItem)}>수정하기</div>
+            <div className={clsx(styles.kebabItem)}>삭제하기</div>
+          </div>
         </div>
       </ModalContainer>
     </ModalPortal>
