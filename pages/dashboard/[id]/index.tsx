@@ -10,7 +10,6 @@ import clsx from "clsx";
 
 const Dashboard = () => {
   const router = useRouter();
-  const currentDashboardId = Number(router.query.id);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [columnData, setColumnData] = useState<ColumnDataType>();
   const [currentId, setCurrentId] = useState<number>(0);
@@ -25,9 +24,12 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    ColumnListData(currentDashboardId);
-    setCurrentId(currentDashboardId);
-  }, [currentDashboardId]);
+    const dashboardId = Number(router.query.id);
+    if (!isNaN(dashboardId)) {
+      ColumnListData(dashboardId);
+      setCurrentId(dashboardId);
+    }
+  }, [router.query.id]);
 
   const openModal = () => {
     setIsOpen(true);
