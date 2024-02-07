@@ -54,7 +54,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
 
   return (
     <>
-      {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} />}
+      {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} columnId={id} />}
       {isEditOpen && <ColumnEditModal setIsOpen={setIsEditOpen} id={id} />}
       {isCardOpen && (
         <>
