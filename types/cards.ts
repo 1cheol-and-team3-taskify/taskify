@@ -49,6 +49,9 @@ export interface TodoEditType {
 }
 
 export interface TodoCreateType {
+  assigneeUserId: number;
+  dashboardId?: number;
+  columnId: number;
   title: string;
   description: string;
   tags: string[];
