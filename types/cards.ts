@@ -50,7 +50,7 @@ export interface TodoEditType {
 
 export interface TodoCreateType {
   assigneeUserId: number;
-  dashboardId?: number;
+  dashboardId: number;
   columnId: number;
   title: string;
   description: string;
@@ -70,5 +70,5 @@ export interface TodoEditType {
 export interface Assignee {
   profileImageUrl: string;
   nickname: string;
-  id: number;
+  userId: number;
 }
