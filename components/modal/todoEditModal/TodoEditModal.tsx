@@ -4,29 +4,58 @@ import {
   Dispatch,
   FormEvent,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import style from "./TodoEditModal.module.scss";
-// import Input from "@/components/input/Input";
+
 import TagChips from "@/components/chips/TagChips";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import Input from "@/components/input/Input";
+
 import Dropdown from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
-import Plus from "@/components/button/plusBtn/PlusBtn";
+
 import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
+import Calendar from "@/components/datepicker/Calendar";
+import { TodoCreateType } from "@/types/cards";
+import { DataType } from "@/types/column";
+import { getCardList } from "@/api/cards";
 
 interface TodoEditModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  columnId: number;
 }
 
-function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
+function TodoEditModal({ setIsOpen, columnId }: TodoEditModalProps) {
+  const [cardData, setCardData] = useState<TodoCreateType>();
+  const [situationState, setSituationState] = useState<DataType>({
+    title: "",
+  });
+  // const [formState, setFormState] = useState<TodoCreateType>({
+  //   title: "",
+  //   description: "",
+  //   tags: [],
+  //   dueDate: "",
+  //   assignee: [],
+  //   imageUrl: "",
+  // });
   const handleTodoEditClick = async (event?: FormEvent) => {
     if (event) event.preventDefault();
   };
+  const CardListData = async (columnId: number) => {
+    try {
+      const response = await getCardList(1, columnId);
+      setCardData(response);
+    } catch (error) {
+      console.log("Get 요청 실패: ", error);
+    }
+  };
+  useEffect(() => {
+    CardListData(columnId);
+  }, [columnId]);
   // const [tagInput, setTagInput] = useState("");
   // const [tags, setTags] = useState([]);
 
@@ -83,13 +112,7 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
               </div>
               <div className={clsx(style.gap)}>
                 <p>마감일</p>
-                <input
-                  className={clsx(style.input)}
-                  placeholder="날짜를 입력해주세요"
-                  onChange={function (
-                    e: ChangeEvent<HTMLInputElement>,
-                  ): void {}}
-                ></input>
+                <Calendar />
               </div>
               <div className={clsx(style.gap)}>
                 <p>태그</p>
@@ -119,7 +142,15 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
               >
                 취소
               </BaseButton>
-              <BaseButton type="submit" small>
+              <BaseButton
+                type="submit"
+                small
+                disabled={
+                  !situationState.title ||
+                  !formState.title ||
+                  !formState.description
+                }
+              >
                 생성
               </BaseButton>
             </div>
