@@ -240,7 +240,12 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
             <div className={clsx(styles.kebabItem)} onClick={openModal}>
               수정하기
             </div>
-            {editModalOpen && <TodoEditModal setIsOpen={setEditModalOpen} />}
+            {editModalOpen && (
+              <TodoEditModal
+                setIsOpen={setIsOpen}
+                onSelectItem={(selectedItemId: number) => {}}
+              />
+            )}
             <div className={clsx(styles.kebabItem)}>삭제하기</div>
           </div>
 >>>>>>> 49ccbeb (feat: 할일 수정 모달 진행)
