@@ -57,8 +57,8 @@ function MyDashboard() {
     <div className={clsx(styles.bg)}>
       <div className={clsx(styles.container)}>
         <DashboardBtn dashboardList={dashboardList} />
-        {/* <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal> */}
-        {/* <TodoEditModal setIsOpen={setIsOpen}></TodoEditModal> */}
+        <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal>
+        <TodoEditModal setIsOpen={setIsOpen}></TodoEditModal>
         <div className={clsx(styles.pageBtnWrapper)}>
           <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
           <PagingButton

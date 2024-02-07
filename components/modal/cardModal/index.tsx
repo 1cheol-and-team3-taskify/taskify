@@ -12,8 +12,13 @@ import { Time } from "@/utils/time";
 import { generateRandomColorHexCode } from "@/utils/color";
 import { COLORS } from "@/constants/colors";
 import styles from "./CardModale.module.scss";
+<<<<<<< HEAD
 import axios from "@/lib/axios";
 import TagChips from "@/components/chips/TagChips";
+=======
+import Link from "next/link";
+import TodoEditModal from "../todoEditModal/TodoEditModal";
+>>>>>>> 49ccbeb (feat: 할일 수정 모달 진행)
 
 interface CardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -39,6 +44,7 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
   });
   const currentCardId = Number(cardProps.id);
   const [isComment, setIsComment] = useState<Comment>();
+<<<<<<< HEAD
   const [kebabOpen, setKebabOpen] = useState<boolean>(false);
 
   const handleKebab = () => {
@@ -46,6 +52,12 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
   }
 
   const onSubmit = async (data: any) => {
+=======
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
+  console.log(title);
+  const postCommentData = async (data: string) => {
+>>>>>>> 49ccbeb (feat: 할일 수정 모달 진행)
     try {
       const response = await axios.post("/comments", {
         content: data.comment,
@@ -96,12 +108,16 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
     const selectedColorKey = colorKeys[randomIndex];
     return COLORS[selectedColorKey];
   };
+  const openModal = () => {
+    setEditModalOpen(true);
+  };
 
   return (
     <ModalPortal>
       <ModalContainer setIsOpen={setIsOpen}>
         <div className={clsx(styles.modalWrapper)}>
           <div>
+<<<<<<< HEAD
             <div className={clsx(styles.titleWrapper)}>
               <h1>{cardProps.title}</h1>
               <div className={clsx(styles.buttonWrapper)}>
@@ -139,6 +155,12 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
             </div>
             <div className={clsx(styles.description)}>
               {cardProps.description}
+=======
+            <h1>{cardProps.title}</h1>
+
+            <div>
+              {title} | {cardProps.tags}
+>>>>>>> 49ccbeb (feat: 할일 수정 모달 진행)
             </div>
             <Image
               className={clsx(styles.cardImg)}
@@ -211,6 +233,17 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
               <span>{Time(`${cardProps.dueDate}`)}</span>
             </div>
           </div>
+<<<<<<< HEAD
+=======
+          <div className={clsx(styles.kebabModal)}>
+            케밥버튼
+            <div className={clsx(styles.kebabItem)} onClick={openModal}>
+              수정하기
+            </div>
+            {editModalOpen && <TodoEditModal setIsOpen={setEditModalOpen} />}
+            <div className={clsx(styles.kebabItem)}>삭제하기</div>
+          </div>
+>>>>>>> 49ccbeb (feat: 할일 수정 모달 진행)
         </div>
       </ModalContainer>
     </ModalPortal>

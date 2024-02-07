@@ -7,57 +7,108 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useRouter } from "next/router";
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import style from "./TodoEditModal.module.scss";
-// import Input from "@/components/input/Input";
 import TagChips from "@/components/chips/TagChips";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import Input from "@/components/input/Input";
 import Dropdown from "@/components/dropdown/Dropdown";
+import { DropdownItem } from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
-
+import Plus from "@/components/button/plusBtn/PlusBtn";
 import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
-
+import { TodoEditType } from "@/types/cards";
+import axios from "@/lib/axios";
+import { title } from "process";
+import authInstance from "@/lib/axios";
+import { getMemberList } from "@/api/members";
 interface TodoEditModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onSelectItem: (selectedItemId: number) => void;
 }
 
-function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
+function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
+  // Props 수정
+  const router = useRouter();
+  const { id } = router.query;
+  // const dashboardId = id ? Number(id) : null;
+  const dashboardId = Number(id);
+  const [formState, setFormState] = useState<TodoEditType>({
+    title: "",
+    description: "",
+    tags: [],
+    dueDate: "",
+    assignee: [],
+    imageUrl: "",
+  });
+  const [todoData, setTodoData] = useState<{ id: number; title: string }[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("columns?dashboardId=3341")
+      .then(response => {
+        setTodoData(response.data.data);
+      })
+      .catch(error => {
+        console.error("데이터를 불러오는데 실패했습니다.", error);
+      });
+  }, []);
+
+  const todoDropdownItems: DropdownItem[] = todoData.map(({ id, title }) => ({
+    id,
+    title,
+  }));
+
+  const MemberListData = async () => {
+    try {
+      const dashMember = await getMemberList(dashboardId, 1, 20);
+      const formattedMembers = dashMember.members.map((member: any) => ({
+        profileImageUrl: member.profileImageUrl,
+        nickname: member.nickname,
+        id: member.id,
+      }));
+      setFormState(prevState => ({
+        ...prevState,
+        assignee: formattedMembers,
+      }));
+    } catch (error) {
+      console.error("GET 요청 실패 :", error);
+    }
+  };
+  useEffect(() => {
+    if (router.query.id) {
+      MemberListData();
+    }
+  }, [dashboardId]);
+
+  const handleSelectedId = (selectedItemId: number) => {
+    setFormState(prevState => ({
+      ...prevState,
+      assigneeUserId: selectedItemId,
+    }));
+  };
   const handleTodoEditClick = async (event?: FormEvent) => {
     if (event) event.preventDefault();
   };
-  // const [tagInput, setTagInput] = useState("");
-  // const [tags, setTags] = useState([]);
-
-  // const handleTagInputChange = e => {
-  //   setTagInput(e.target.value);
-  // };
-
-  // const handleTagInputKeyDown = e => {
-  //   if (e.key === "Enter" && tagInput.trim() !== "") {
-  //     setTags(prevTags => [...prevTags, tagInput.trim()]);
-  //     setTagInput("");
-  //   }
-  // };
 
   return (
     <ModalPortal>
-      <form onSubmit={handleTodoEditClick}>
-        <ModalContainer setIsOpen={setIsOpen}>
+      <ModalContainer setIsOpen={setIsOpen}>
+        <form onSubmit={handleTodoEditClick}>
           <div className={clsx(style.modalWrapper)}>
             <h1>할 일 수정</h1>
             <div className={clsx(style.inputWrapper)}>
               <div className={clsx(style.flexWrapper)}>
                 <div>
                   <p>상태</p>
-                  <Dropdown data={null}></Dropdown>
+                  <Dropdown data={todoDropdownItems}></Dropdown>
                 </div>
                 <div>
                   <p>담당자</p>
                   <div className={clsx(style.inputdropdown)}>
-                    <InputDropdown small />
+                    <InputDropdown small onSelectItem={handleSelectedId} />
                   </div>
                 </div>
               </div>
@@ -68,9 +119,6 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
                 <input
                   className={clsx(style.input)}
                   placeholder="제목을 입력해 주세요"
-                  onChange={function (
-                    e: ChangeEvent<HTMLInputElement>,
-                  ): void {}}
                 ></input>
               </div>
               <div className={clsx(style.gap)}>
@@ -84,13 +132,6 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
               </div>
               <div className={clsx(style.gap)}>
                 <p>마감일</p>
-                <input
-                  className={clsx(style.input)}
-                  placeholder="날짜를 입력해주세요"
-                  onChange={function (
-                    e: ChangeEvent<HTMLInputElement>,
-                  ): void {}}
-                ></input>
               </div>
               <div className={clsx(style.gap)}>
                 <p>태그</p>
@@ -120,15 +161,20 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
               >
                 취소
               </BaseButton>
-              <BaseButton type="submit" small>
+              <BaseButton
+                type="submit"
+                small
+                disabled={
+                  //상태
+                  !formState.title || !formState.description
+                }
+              >
                 생성
               </BaseButton>
             </div>
           </div>
-        </ModalContainer>
-      </form>
+        </form>
+      </ModalContainer>
     </ModalPortal>
   );
 }
-
-export default TodoEditModal;
