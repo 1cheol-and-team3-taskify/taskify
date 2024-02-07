@@ -32,7 +32,7 @@ const InputDropdown = ({ small, onSelectItem }: InputDropdownProps) => {
   const handleMenuItemClick = (clickedItem: Assignee) => {
     setSelectedItem(clickedItem);
     setIsOpen(false);
-    onSelectItem(clickedItem.id);
+    onSelectItem(clickedItem.userId);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
