@@ -7,7 +7,6 @@ interface ModalContainerProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
   isModalOpen?: boolean;
-
 }
 
 function ModalContainer({

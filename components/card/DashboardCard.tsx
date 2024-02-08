@@ -5,7 +5,6 @@ import { generateRandomColorHexCode } from "@/utils/color";
 import clsx from "clsx";
 import Image from "next/image";
 import { CardPropsType } from "@/types/cards";
-import CardModal from "../modal/cardModal";
 
 const CALENDAR_ICON_PATH = "/icons/calendar.svg";
 

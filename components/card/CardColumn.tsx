@@ -6,7 +6,7 @@ import { getCardList } from "@/api/cards";
 import { InitialCardData, CardPropsType } from "@/types/cards";
 import ColumnEditModal from "../modal/columnEditModal/ColumnEditModal";
 import TodoCreateModal from "../modal/todoCreateModal";
-import CardModal from "../modal/cardModal";
+import CardModal from "@/components/modal/cardModal";
 
 const ELLIPSE_ICON_PATH = "/icons/blueEllipse.svg";
 const SETTING_ICON_PATH = "/icons/setting.svg";

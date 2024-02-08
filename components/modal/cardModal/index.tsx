@@ -14,7 +14,6 @@ import { Time } from "@/utils/time";
 import { generateRandomColorHexCode } from "@/utils/color";
 import { COLORS } from "@/constants/colors";
 import styles from "./CardModale.module.scss";
-<<<<<<< HEAD
 import axios from "@/lib/axios";
 import TagChips from "@/components/chips/TagChips";
 import TodoEditModal from "../todoEditModal/TodoEditModal";
@@ -48,8 +47,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   const currentCardId = Number(cardId);
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isComment, setIsComment] = useState<Comment>();
-<<<<<<< HEAD
-<<<<<<< HEAD
   const [kebabOpen, setKebabOpen] = useState<boolean>(false);
   const [cardData, setCardData] = useState<CardPropsType>({
     id: 0,
@@ -69,6 +66,8 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     createdAt: "",
     updatedAt: "",
   });
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleKebab = () => {
     setKebabOpen(prevKebabOpen => !prevKebabOpen);
@@ -86,15 +85,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   };
 
   const onSubmit = async (data: any) => {
-=======
-  const [editModalOpen, setEditModalOpen] = useState(false);
-=======
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
->>>>>>> 0edf7de (feat: 할일 수정 모달 진행)
-
-  console.log(title);
-  const postCommentData = async (data: string) => {
->>>>>>> 49ccbeb (feat: 할일 수정 모달 진행)
     try {
       const response = await axios.post("/comments", {
         content: data.comment,
@@ -162,7 +152,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
         )}
         <div className={clsx(styles.modalWrapper)}>
           <div>
-
             <div className={clsx(styles.titleWrapper)}>
               <h1>{cardData.title}</h1>
               <div className={clsx(styles.buttonWrapper)}>
@@ -303,8 +292,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
               </div>
             </div>
           </div>
-
-      
         </div>
       </ModalContainer>
     </ModalPortal>

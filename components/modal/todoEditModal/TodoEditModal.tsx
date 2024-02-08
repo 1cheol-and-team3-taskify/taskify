@@ -20,13 +20,14 @@ import Plus from "@/components/button/plusBtn/PlusBtn";
 import AddImage from "@/components/mypage/AddImage";
 import { TodoEditType } from "@/types/cards";
 import { getCardinfoList } from "@/api/cards";
+import InputDropdown from "@/components/inputdropdown/InputDropdown";
 
 interface TodoEditModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  onSelectItem: (selectedItemId: number) => void;
+  cardId: number;
 }
 
-function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
+function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
   // Props 수정
   const router = useRouter();
   const { id } = router.query;
@@ -98,24 +99,23 @@ function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
     }
   };
 
+  // useEffect(() => {
+  //   CardListData(cardId);
+  // }, [cardId]);
 
-    // useEffect(() => {
-    //   CardListData(cardId);
-    // }, [cardId]);
+  // const [tagInput, setTagInput] = useState("");
+  // const [tags, setTags] = useState([]);
 
-    // const [tagInput, setTagInput] = useState("");
-    // const [tags, setTags] = useState([]);
+  // const handleTagInputChange = e => {
+  //   setTagInput(e.target.value);
+  // };
 
-    // const handleTagInputChange = e => {
-    //   setTagInput(e.target.value);
-    // };
-
-    // const handleTagInputKeyDown = e => {
-    //   if (e.key === "Enter" && tagInput.trim() !== "") {
-    //     setTags(prevTags => [...prevTags, tagInput.trim()]);
-    //     setTagInput("");
-    //   }
-    // };
+  // const handleTagInputKeyDown = e => {
+  //   if (e.key === "Enter" && tagInput.trim() !== "") {
+  //     setTags(prevTags => [...prevTags, tagInput.trim()]);
+  //     setTagInput("");
+  //   }
+  // };
 
   return (
     <ModalPortal>
@@ -127,12 +127,12 @@ function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
               <div className={clsx(style.flexWrapper)}>
                 <div>
                   <p>상태</p>
-                  <Dropdown data={todoDropdownItems}></Dropdown>
+                  {/* <Dropdown data={todoDropdownItems}></Dropdown> */}
                 </div>
                 <div>
                   <p>담당자</p>
                   <div className={clsx(style.inputdropdown)}>
-                    <InputDropdown small onSelectItem={handleSelectedId} />
+                    {/* <InputDropdown small onSelectItem={handleSelectedId} /> */}
                   </div>
                 </div>
               </div>
