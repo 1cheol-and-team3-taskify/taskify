@@ -29,7 +29,16 @@ interface TodoEditModalProps {
   onSelectItem: (selectedItemId: number) => void;
 }
 
+<<<<<<< HEAD
 function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
+=======
+function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
+  // Props 수정
+  const router = useRouter();
+  const { id } = router.query;
+  // const dashboardId = id ? Number(id) : null;
+  const dashboardId = Number(id);
+>>>>>>> 0edf7de (feat: 할일 수정 모달 진행)
   const [formState, setFormState] = useState<TodoEditType>({
     title: "",
     description: "",
@@ -56,6 +65,7 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
     title,
   }));
 
+<<<<<<< HEAD
   // const [members, setMembers] = useState<
   //   { id: number; nickname: string; profileImageUrl: string }[]
   // >([]);
@@ -89,6 +99,29 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
   //         console.error("API 호출 실패:", error);
   //       }
   //     };
+=======
+  const MemberListData = async () => {
+    try {
+      const dashMember = await getMemberList(dashboardId, 1, 20);
+      const formattedMembers = dashMember.members.map((member: any) => ({
+        profileImageUrl: member.profileImageUrl,
+        nickname: member.nickname,
+        id: member.id,
+      }));
+      setFormState(prevState => ({
+        ...prevState,
+        assignee: formattedMembers,
+      }));
+    } catch (error) {
+      console.error("GET 요청 실패 :", error);
+    }
+  };
+  useEffect(() => {
+    if (router.query.id) {
+      MemberListData();
+    }
+  }, [dashboardId]);
+>>>>>>> 0edf7de (feat: 할일 수정 모달 진행)
 
   //     fetchMembers(); // API 호출 함수 실행
   //   }

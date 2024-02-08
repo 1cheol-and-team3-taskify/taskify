@@ -45,6 +45,7 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
   const currentCardId = Number(cardProps.id);
   const [isComment, setIsComment] = useState<Comment>();
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [kebabOpen, setKebabOpen] = useState<boolean>(false);
 
   const handleKebab = () => {
@@ -54,6 +55,9 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
   const onSubmit = async (data: any) => {
 =======
   const [editModalOpen, setEditModalOpen] = useState(false);
+=======
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+>>>>>>> 0edf7de (feat: 할일 수정 모달 진행)
 
   console.log(title);
   const postCommentData = async (data: string) => {
@@ -109,7 +113,7 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
     return COLORS[selectedColorKey];
   };
   const openModal = () => {
-    setEditModalOpen(true);
+    setIsAlertOpen(true);
   };
 
   return (
@@ -240,9 +244,9 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
             <div className={clsx(styles.kebabItem)} onClick={openModal}>
               수정하기
             </div>
-            {editModalOpen && (
+            {isAlertOpen && (
               <TodoEditModal
-                setIsOpen={setIsOpen}
+                setIsOpen={setIsAlertOpen}
                 onSelectItem={(selectedItemId: number) => {}}
               />
             )}
