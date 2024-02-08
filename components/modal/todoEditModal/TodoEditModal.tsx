@@ -17,28 +17,23 @@ import Dropdown from "@/components/dropdown/Dropdown";
 import { DropdownItem } from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
 import Plus from "@/components/button/plusBtn/PlusBtn";
-import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 import { TodoEditType } from "@/types/cards";
 import axios from "@/lib/axios";
 import { title } from "process";
 import authInstance from "@/lib/axios";
 import { getMemberList } from "@/api/members";
+import InputDropdown from "@/components/inputdropdown/InputDropdown";
 interface TodoEditModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   onSelectItem: (selectedItemId: number) => void;
 }
 
-<<<<<<< HEAD
-function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
-=======
 function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
   // Props 수정
   const router = useRouter();
   const { id } = router.query;
-  // const dashboardId = id ? Number(id) : null;
   const dashboardId = Number(id);
->>>>>>> 0edf7de (feat: 할일 수정 모달 진행)
   const [formState, setFormState] = useState<TodoEditType>({
     title: "",
     description: "",
@@ -65,41 +60,6 @@ function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
     title,
   }));
 
-<<<<<<< HEAD
-  // const [members, setMembers] = useState<
-  //   { id: number; nickname: string; profileImageUrl: string }[]
-  // >([]);
-  // useEffect(() => {
-  //   axios
-  //     .get("members?page=1&size=20&dashboardId=3341")
-  //     .then(response => {
-  //       setMembers(response.data.members);
-  //     })
-  //     .catch(error => {
-  //       console.error("데이터를 불러오는데 실패했습니다.", error);
-  //     });
-  // }, []);
-  // const router = useRouter();
-  // const { id } = router.query;
-  // useEffect(() => {
-  //   if (id) {
-  //     // 대시보드 ID를 사용하여 API 호출
-  //     const fetchMembers = async () => {
-  //       try {
-  //         const response = await axios.get(`/api/members`, {
-  //           params: {
-  //             page: 1,
-  //             size: 20,
-  //             dashboardId: id,
-  //           },
-  //         });
-  //         const data = response.data;
-  //         console.log("멤버 목록:", data);
-  //       } catch (error) {
-  //         console.error("API 호출 실패:", error);
-  //       }
-  //     };
-=======
   const MemberListData = async () => {
     try {
       const dashMember = await getMemberList(dashboardId, 1, 20);
@@ -121,11 +81,13 @@ function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
       MemberListData();
     }
   }, [dashboardId]);
->>>>>>> 0edf7de (feat: 할일 수정 모달 진행)
 
-  //     fetchMembers(); // API 호출 함수 실행
-  //   }
-  // }, [id]);
+  const handleSelectedId = (selectedItemId: number) => {
+    setFormState(prevState => ({
+      ...prevState,
+      assigneeUserId: selectedItemId,
+    }));
+  };
   const handleTodoEditClick = async (event?: FormEvent) => {
     if (event) event.preventDefault();
   };
@@ -215,3 +177,5 @@ function TodoEditModal({ setIsOpen, onSelectItem }: TodoEditModalProps) {
     </ModalPortal>
   );
 }
+
+export default TodoEditModal;

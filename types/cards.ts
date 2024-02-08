@@ -45,8 +45,6 @@ export interface TodoEditType {
   description: string;
   tags: string[];
   dueDate: string;
-<<<<<<< HEAD
-=======
   assignee: Assignee[];
   imageUrl: string;
 }
@@ -56,7 +54,6 @@ export interface TodoCreateType {
   description: string;
   tags: string[];
   dueDate: string;
->>>>>>> 0f8b688 (리베이스)
   assignee: Assignee[];
   imageUrl: string;
 }

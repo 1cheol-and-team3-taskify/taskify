@@ -52,16 +52,13 @@ function MyDashboard() {
   useEffect(() => {
     DashboardListData(currentPage);
   }, [dashboardList.totalCount, currentPage]);
-  const handleSelectItem = (selectedItemId: number) => {
-    console.log("Selected item ID:", selectedItemId);
-    // 여기에 선택된 아이템에 대한 처리를 추가할 수 있습니다.
-  };
+
   return (
     <div className={clsx(styles.bg)}>
       <div className={clsx(styles.container)}>
         <DashboardBtn dashboardList={dashboardList} />
-        <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal>
-        <TodoEditModal setIsOpen={setIsOpen} onSelectItem={handleSelectItem} />
+        {/* <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal> */}
+        {/* <TodoEditModal setIsOpen={setIsOpen}></TodoEditModal> */}
         <div className={clsx(styles.pageBtnWrapper)}>
           <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
           <PagingButton
