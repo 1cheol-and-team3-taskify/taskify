@@ -4,14 +4,14 @@
 
 .container {
   width: 100%;
-  padding-right: 4rem;
+  padding: 0 4rem 4rem 0;
 
   @include desktop {
     max-width: 106.2rem;
   }
 
   @include mobile {
-    padding: 0 2.4rem;
+    padding: 0 2.4rem 4rem 2.4rem;
   }
 }
 
