@@ -57,10 +57,6 @@ function MyDashboard() {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
   useEffect(() => {
     if (totalPage !== 0 && totalPage < currentPage)
       setCurrentPage(prev => prev - 1);
@@ -77,31 +73,33 @@ function MyDashboard() {
   return (
     <div className={clsx(styles.bg)}>
       <div className={clsx(styles.container)}>
-        <DashboardBtn
-          onClick={() => setIsModalOpen(true)}
-          dashboardList={dashboardList}
-        />
-        <div className={clsx(styles.pageBtnWrapper)}>
-          <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
-          <PagingButton
-            onClick={{
-              left: handleLeftButtonClick,
-              right: handleRightButtonClick,
-            }}
-            disabled={{
-              left: currentPage === 1,
-              right: currentPage === totalPage,
-            }}
-            small
+        <div className={clsx(styles.buttonContainer)}>
+          <DashboardBtn
+            onClick={() => setIsModalOpen(true)}
+            dashboardList={dashboardList}
           />
+          <div className={clsx(styles.pageBtnWrapper)}>
+            <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+            <PagingButton
+              onClick={{
+                left: handleLeftButtonClick,
+                right: handleRightButtonClick,
+              }}
+              disabled={{
+                left: currentPage === 1,
+                right: currentPage === totalPage,
+              }}
+              small
+            />
+          </div>
         </div>
+        <MyInvitedDashboardTable
+          data={invitations}
+          setData={setInvitations}
+          filteredData={filteredInvitations}
+          setFilteredData={setFilteredInvitations}
+        />
       </div>
-      <MyInvitedDashboardTable
-        data={invitations}
-        setData={setInvitations}
-        filteredData={filteredInvitations}
-        setFilteredData={setFilteredInvitations}
-      />
       {isModalOpen && <CreateDashboardModal setIsOpen={setIsModalOpen} />}
     </div>
   );
