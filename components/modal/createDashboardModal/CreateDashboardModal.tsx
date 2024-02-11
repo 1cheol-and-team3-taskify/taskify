@@ -1,6 +1,6 @@
 import ModalContainer from "@/components/modal/ModalContainer";
 import ModalPortal from "@/components/modal/ModalPortal";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./CreateDashboardModal.module.scss";
 import SelectColorChip from "@/components/chips/SelectColorChip";
 import { createDashboard } from "@/api/dashboards";
@@ -13,6 +13,7 @@ interface CreateDashboardModalProps {
 const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
+  const [isValid, setIsValid] = useState(false);
   const router = useRouter();
 
   const handleModalClose = () => {
@@ -29,6 +30,14 @@ const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
     }
   };
 
+  const validate = () => {
+    setIsValid(Boolean(title && color));
+  };
+
+  useEffect(() => {
+    validate();
+  }, [title, color]);
+
   return (
     <ModalPortal>
       <ModalContainer setIsOpen={handleModalClose}>
@@ -39,7 +48,9 @@ const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
             className={styles.inputTitle}
             type="text"
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={e => {
+              setTitle(e.target.value);
+            }}
           />
           <div className={styles.colors}>
             <SelectColorChip
@@ -59,8 +70,9 @@ const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
             </button>
             <button
               type="button"
-              className={styles.create}
+              className={isValid ? styles.create : styles.disabled}
               onClick={createDashboardRequest}
+              disabled={!isValid}
             >
               생성
             </button>
