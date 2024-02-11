@@ -10,7 +10,7 @@ import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import { getInvitedDashboardList } from "@/api/invitations";
 import CreateDashboardModal from "@/components/modal/createDashboardModal/CreateDashboardModal";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 function MyDashboard() {
   const [dashboardList, setDashboardList] = useState<GetDashboardListType>({
@@ -22,10 +22,9 @@ function MyDashboard() {
   const [invitations, setInvitations] = useState<MappedInvitations>([]);
   const [filteredInvitations, setFilteredInvitations] =
     useState<MappedInvitations>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const router = useRouter();
-  const { create } = router.query;
-  const [isModalOpen, setIsModalOpen] = useState(create ? true : false);
+  const createRequired = useSearchParams().get("create");
 
   const ITEMS_PER_PAGE = 5;
   const totalPage = Math.ceil((dashboardList.totalCount || 1) / ITEMS_PER_PAGE);
@@ -69,6 +68,10 @@ function MyDashboard() {
   useEffect(() => {
     getInvitations();
   }, []);
+
+  useEffect(() => {
+    setIsModalOpen(createRequired ? true : false);
+  }, [createRequired]);
 
   return (
     <div className={clsx(styles.bg)}>

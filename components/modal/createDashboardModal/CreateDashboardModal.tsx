@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import styles from "./CreateDashboardModal.module.scss";
 import SelectColorChip from "@/components/chips/SelectColorChip";
 import { createDashboard } from "@/api/dashboards";
+import { useRouter } from "next/router";
 
 interface CreateDashboardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -12,11 +13,17 @@ interface CreateDashboardModalProps {
 const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
+  const router = useRouter();
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+    router.replace("/mydashboard");
+  };
 
   const createDashboardRequest = async () => {
     try {
       await createDashboard(title, color);
-      setIsOpen(false);
+      handleModalClose();
     } catch (error) {
       console.error("대시보드 생성 실패: ", error);
     }
@@ -24,7 +31,7 @@ const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
 
   return (
     <ModalPortal>
-      <ModalContainer setIsOpen={setIsOpen}>
+      <ModalContainer setIsOpen={handleModalClose}>
         <div className={styles.container}>
           <div className={styles.title}>새로운 대시보드</div>
           <div className={styles.subTitle}>대시보드 이름</div>
@@ -46,7 +53,7 @@ const CreateDashboardModal = ({ setIsOpen }: CreateDashboardModalProps) => {
             <button
               type="button"
               className={styles.cancel}
-              onClick={() => setIsOpen(false)}
+              onClick={handleModalClose}
             >
               취소
             </button>
