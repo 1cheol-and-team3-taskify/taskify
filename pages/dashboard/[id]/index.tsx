@@ -32,7 +32,12 @@ const Dashboard = () => {
   }, [router.query.id]);
 
   const openModal = () => {
-    setIsOpen(true);
+    const maxColumnCount = 10;
+    if (columnData && columnData.data.length < maxColumnCount) {
+      setIsOpen(true);
+    } else {
+      alert(`더 이상 컬럼을 추가할 수 없습니다. (최대 ${maxColumnCount}개)`);
+    }
   };
 
   return (

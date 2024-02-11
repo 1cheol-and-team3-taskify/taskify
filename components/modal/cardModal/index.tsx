@@ -6,13 +6,13 @@ import Spinner from "@/components/spinner";
 import ModalContainer from "../ModalContainer";
 import ModalPortal from "../ModalPortal";
 import BaseButton from "@/components/button/baseButton/BaseButton";
+import ProfileImage from "@/components/profileImage/ProfileImage";
 import { putComments, deleteComments, getComments } from "@/api/comments";
 import { getCardinfoList, deleteCard } from "@/api/cards";
 import { CardPropsType } from "@/types/cards";
 import { Comment, CommentContent } from "@/types/comments";
 import { Time } from "@/utils/time";
 import { generateRandomColorHexCode } from "@/utils/color";
-import { COLORS } from "@/constants/colors";
 import styles from "./CardModale.module.scss";
 import axios from "@/lib/axios";
 import TagChips from "@/components/chips/TagChips";
@@ -50,6 +50,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isComment, setIsComment] = useState<Comment>();
   const [kebabOpen, setKebabOpen] = useState<boolean>(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [cardData, setCardData] = useState<CardPropsType>({
     id: 0,
     title: "",
@@ -68,7 +69,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     createdAt: "",
     updatedAt: "",
   });
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleKebab = () => {
     setKebabOpen(prevKebabOpen => !prevKebabOpen);
@@ -146,19 +146,16 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     setIsEditOpen(true);
   };
 
-  const getRandomColor = (): string => {
-    const colorKeys: (keyof Colors)[] = Object.keys(COLORS) as (keyof Colors)[];
-    const randomIndex = Math.floor(Math.random() * colorKeys.length);
-    const selectedColorKey = colorKeys[randomIndex];
-    return COLORS[selectedColorKey];
-  };
-
   const openAlertModal = () => {
     setIsAlertOpen(true);
   };
 
   const closeAlertModal = () => {
     setIsAlertOpen(false);
+  };
+
+  const closeCard = () => {
+    setIsOpen(false);
   };
 
   if (isLoading) {
@@ -183,12 +180,13 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                   height={32}
                   onClick={handleKebab}
                 />
-                {/* <Image
+                <Image
                   src="/icons/close.svg"
                   alt="닫기 버튼"
                   width={20}
                   height={20}
-                /> */}
+                  onClick={closeCard}
+                />
               </div>
               {kebabOpen && (
                 <div className={clsx(styles.kebabModal)}>
@@ -250,14 +248,14 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                     <div className={clsx(styles.profileWrapper)}>
                       <span>담당자</span>
                       <div className={clsx(styles.profile)}>
-                        <div
+                      <div
                           key={cardData.assignee.id}
                           className={clsx(styles.invitee)}
                           style={{
                             backgroundImage: cardData.assignee.profileImageUrl
                               ? `url(${cardData.assignee.profileImageUrl})`
                               : "none",
-                            backgroundColor: getRandomColor(),
+                            backgroundColor: "#9fa6b2",
                           }}
                         >
                           {cardData.assignee.nickname.charAt(0).toUpperCase()}
@@ -298,17 +296,11 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
               <div className={clsx(styles.commentWrapper)}>
                 {isComment?.comments.map((comment: CommentContent) => (
                   <div key={comment.id} className={clsx(styles.commentProfile)}>
-                    <div
-                      className={clsx(styles.invitee)}
-                      style={{
-                        backgroundImage: comment.author.profileImageUrl
-                          ? `url(${comment.author.profileImageUrl})`
-                          : "none",
-                        backgroundColor: getRandomColor(),
-                      }}
-                    >
-                      {comment.author.nickname.charAt(0).toUpperCase()}
-                    </div>
+                    <ProfileImage
+                      member={comment.author}
+                      width={34}
+                      height={34}
+                    />
                     <div className={clsx(styles.textWrapper)}>
                       <div className={clsx(styles.nicknameWrapper)}>
                         <div className={clsx(styles.user)}>

@@ -78,7 +78,14 @@ const SideMenu = () => {
               className={clsx(styles.dashboardColor)}
               style={{ backgroundColor: item.color }}
             ></div>
-            <span className={clsx(styles.dashboardList)}>{item.title}</span>
+            <span className={clsx(styles.dashboardList)}>
+              {item.title.length > 9
+                ? `${item.title.slice(0, 9)}...`
+                : item.title}
+            </span>
+            <span className={clsx(styles.dashboardListMobile)}>
+              {item.title.charAt(0).toUpperCase()}
+            </span>
             {item.createdByMe && (
               <Image
                 src="/button-icon/crown_icon.png"

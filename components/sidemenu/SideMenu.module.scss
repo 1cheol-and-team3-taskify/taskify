@@ -46,10 +46,10 @@
 
 .dashboardListWrapper {
   display: flex;
+  align-items: center;
   gap: 0.6rem;
   width: 100%;
   border-radius: 0.4rem;
-  align-items: center;
   margin: 0.5rem auto;
   padding: 1.2rem;
   color: $gray-500;
@@ -72,12 +72,30 @@
 .dashboardList {
   @include text-style-18-middle();
 
+  @include tablet {
+    @include text-style-14-middle();
+  }
+
   @include mobile {
     display: none;
   }
 }
 
+.dashboardListMobile {
+  display: none;
+
+  @include mobile {
+    @include text-style-16-middle();
+    display: block;
+  }
+}
+
 .crown {
+  @include tablet {
+    width: 1.3rem;
+    height: 1rem;
+  }
+
   @include mobile {
     display: none;
   }

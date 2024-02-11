@@ -180,6 +180,28 @@ const DashboardGnb = () => {
                   </div>
                 )}
             </div>
+            <div className={clsx(styles.memberWrapperMobile)}>
+              {dashMember?.members.slice(0, 2).map(member => (
+                <div
+                  key={member.id}
+                  className={clsx(styles.invitee)}
+                  style={{
+                    backgroundImage: member.profileImageUrl
+                      ? `url(${member.profileImageUrl})`
+                      : "none",
+                    backgroundColor: getRandomColor(),
+                  }}
+                >
+                  {member.nickname.charAt(0).toUpperCase()}
+                </div>
+              ))}
+              {(dashMember?.members.length || 0) > 2 &&
+                dashMember?.totalCount !== undefined && (
+                  <div className={clsx(styles.totalCount)}>
+                    +{dashMember.totalCount - 2}
+                  </div>
+                )}
+            </div>
           </div>
         )}
         <div className={clsx(styles.profile)} onClick={handleKebab}>
