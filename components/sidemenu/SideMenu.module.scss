@@ -62,6 +62,18 @@
   }
 }
 
+.selectedDashboard {
+  @include tablet {
+    color: $black-200;
+    background-color: $violet-100;
+  }
+
+  @include mobile {
+    color: $black-200;
+    background-color: $violet-100;
+  }
+}
+
 .dashboardColor {
   width: 0.8rem;
   height: 0.8rem;
@@ -109,13 +121,15 @@
   position: absolute;
   right: 2rem;
   bottom: 2rem;
+
   @include mobile {
-    display: none;
+    right: 1.2rem;
   }
 }
 
 .pageText {
   display: none;
+
   @include desktop() {
     display: inline;
   }

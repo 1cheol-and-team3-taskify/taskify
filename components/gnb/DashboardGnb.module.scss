@@ -136,10 +136,6 @@
   display: none;
   margin-right: 2rem;
 
-  @include desktop {
-    display: flex;
-  }
-
   @include mobile {
     display: flex;
     margin-right: 0.5rem;
