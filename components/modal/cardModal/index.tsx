@@ -50,7 +50,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isComment, setIsComment] = useState<Comment>();
   const [kebabOpen, setKebabOpen] = useState<boolean>(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [cardData, setCardData] = useState<CardPropsType>({
     id: 0,
     title: "",
@@ -89,7 +88,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   const deleteCardData = async (cardId: number) => {
     try {
       await deleteCard(cardId);
-      closeAlertModal();
+      closeCard();
     } catch (error) {
       console.error("카드 삭제 실패", error);
     }
@@ -146,14 +145,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     setIsEditOpen(true);
   };
 
-  const openAlertModal = () => {
-    setIsAlertOpen(true);
-  };
-
-  const closeAlertModal = () => {
-    setIsAlertOpen(false);
-  };
-
   const closeCard = () => {
     setIsOpen(false);
   };
@@ -198,20 +189,10 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                   </div>
                   <div
                     className={clsx(styles.kebabItem)}
-                    onClick={openAlertModal}
+                    onClick={()=> deleteCardData(cardData.id)}
                   >
                     삭제하기
                   </div>
-                  {/* {isAlertOpen && (
-                    <AlertModal
-                      setModal={setIsAlertOpen}
-                      alertMessage="카드의 모든 정보가 삭제됩니다."
-                      isCancelButton
-                      onConfirmClick={() => {
-                        deleteCardData(currentCardId);
-                      }}
-                    />
-                  )} */}
                 </div>
               )}
             </div>
