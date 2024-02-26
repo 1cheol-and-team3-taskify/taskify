@@ -42,8 +42,8 @@
   gap: 2rem;
 
   @include mobile {
-   gap: 0.8rem;
-   padding-right: 1.8em;
+    gap: 0.8rem;
+    padding-right: 1.8em;
   }
 }
 
@@ -65,7 +65,7 @@
   @include mobile {
     width: 8rem;
     height: 6.8rem;
-   }
+  }
 }
 
 .kebabItem {
@@ -163,24 +163,20 @@
   }
 }
 
-.image {
-  position: relative;
+.cardImg {
+  border-radius: 0.6rem;
   width: 45rem;
-  height: 26.3rem;
+  height: 45rem;
 
   @include tablet {
     width: 42rem;
-    height: 24.5rem;
+    height: 42rem;
   }
 
   @include mobile {
     width: 28.7rem;
-    height: 16.7rem;
+    height: 28.7rem;
   }
-}
-
-.cardImg {
-  border-radius: 0.6rem;
 }
 
 .assigneeWrapper {

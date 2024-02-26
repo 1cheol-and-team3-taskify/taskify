@@ -10,10 +10,10 @@ import clsx from "clsx";
 
 const Dashboard = () => {
   const router = useRouter();
+  const { id } = router.query;
+  const dashboardId = Number(id);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [columnData, setColumnData] = useState<ColumnDataType>();
-  const [currentId, setCurrentId] = useState<number>(0);
-
 
   const ColumnListData = async (dashboardId: number) => {
     try {
@@ -25,12 +25,22 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    const dashboardId = Number(router.query.id);
-    if (!isNaN(dashboardId)) {
+    if (router.query.id) {
       ColumnListData(dashboardId);
-      setCurrentId(dashboardId);
     }
-  }, [router.query.id]);
+  }, [dashboardId]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      if (router.query.id) {
+        ColumnListData(dashboardId);
+      }
+    }
+  }, [isOpen]);
+
+  const refreshColumnList = () => {
+    ColumnListData(dashboardId);
+  };
 
   const openModal = () => {
     const maxColumnCount = 10;
@@ -42,21 +52,30 @@ const Dashboard = () => {
   };
 
   return (
-      <div className={styles.bg}>
-        <div className={styles.columns}>
-          {columnData?.data.map(column => (
-            <CardColumn key={column.id} id={column.id} title={column.title} />
-          ))}
-          <div className={clsx(styles.plusBtn)}>
-            <PlusBtn size={"colum"} textStyle={"colum"} onClick={openModal}>
-              새로운 컬럼 추가하기
-            </PlusBtn>
-          </div>
-          {isOpen && (
-            <ColumnAddModal setIsOpen={setIsOpen} currentId={currentId} />
-          )}
+    <div className={styles.bg}>
+      <div className={styles.columns}>
+        {columnData?.data.map(column => (
+          <CardColumn
+            key={column.id}
+            id={column.id}
+            title={column.title}
+            refreshColumnList={refreshColumnList}
+          />
+        ))}
+        <div className={clsx(styles.plusBtn)}>
+          <PlusBtn size={"colum"} textStyle={"colum"} onClick={openModal}>
+            새로운 컬럼 추가하기
+          </PlusBtn>
         </div>
+        {isOpen && (
+          <ColumnAddModal
+            setIsOpen={setIsOpen}
+            currentId={dashboardId}
+            refreshColumnList={refreshColumnList}
+          />
+        )}
       </div>
+    </div>
   );
 };
 

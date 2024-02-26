@@ -55,8 +55,8 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
 
   const columnListData = async () => {
     try {
-      const data = await getColumnList(dashboardId);
-      setColumnList(data.data);
+      const response = await getColumnList(dashboardId);
+      setColumnList(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -114,7 +114,6 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
     if (event) event.preventDefault();
     try {
       await putTodoEditCard(cardId, formState);
-      console.log("dsd");
       setIsOpen(false);
     } catch (error) {
       console.error(error);
@@ -124,6 +123,7 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
   useEffect(() => {
     cardData(cardId);
     columnListData();
+    console.log(formState);
   }, [cardId]);
 
   return (
@@ -147,7 +147,7 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
                   <div className={clsx(style.inputdropdown)}>
                     <InputDropdown
                       small
-                      onSelectItem={handleSelectedId}
+                      onSelectItem={() => handleSelectedId(formState.assignee)}
                       //@ts-ignore
                       defaultValue={formState.assignee}
                     />
@@ -179,7 +179,7 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
               <div className={clsx(style.gap)}>
                 <p>마감일</p>
                 <Calendar
-                  onDueDate={handleSelectedDate}
+                  onDueDate={() => handleSelectedDate(formState.dueDate)}
                   defaultValue={formState.dueDate}
                 />
               </div>

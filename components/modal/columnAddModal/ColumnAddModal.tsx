@@ -4,7 +4,6 @@ import {
   Dispatch,
   FormEvent,
   SetStateAction,
-  useEffect,
   useState,
 } from "react";
 import ModalPortal from "../ModalPortal";
@@ -13,17 +12,18 @@ import style from "./ColumnAddModal.module.scss";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import axios from "@/lib/axios";
 import { PostcolumnsAddData } from "@/types/columns";
-import { useRouter } from "next/router";
+
 interface ColumnAddModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   currentId: Number;
+  refreshColumnList: () => void;
 }
 
-function ColumnAddModal({ setIsOpen, currentId }: ColumnAddModalProps) {
-  const router = useRouter();
-  const { id } = router.query;
-  const [errorMsg, setErrorMsg] = useState("");
-
+function ColumnAddModal({
+  setIsOpen,
+  currentId,
+  refreshColumnList,
+}: ColumnAddModalProps) {
   const [columnName, setColumnName] = useState<PostcolumnsAddData>({
     title: "",
   });
@@ -52,6 +52,7 @@ function ColumnAddModal({ setIsOpen, currentId }: ColumnAddModalProps) {
     try {
       postColumnsAdd(columnName.title, Number(currentId));
       setIsOpen(false);
+      refreshColumnList();
     } catch (error) {
       console.error(error);
     }

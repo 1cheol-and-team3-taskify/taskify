@@ -6,7 +6,7 @@ import Image from "next/image";
 interface DropdownProps {
   data: DropdownItem[];
   onSelectItem: (itemId: number) => void;
-  defaultValue?: any;
+  defaultValue?: number;
 }
 
 export interface DropdownItem {
@@ -30,9 +30,9 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   const handleMenuItemClick = (clickedItem: DropdownItem) => {
+    onSelectItem(clickedItem.id);
     setSelectedItem(clickedItem);
     setIsOpen(false);
-    onSelectItem(defaultValue ? defaultValue : clickedItem.id);
   };
 
   useEffect(() => {

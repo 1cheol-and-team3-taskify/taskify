@@ -179,7 +179,9 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
             <BaseButton
               type="submit"
               small
-              disabled={!formState.title || !formState.description}
+              disabled={
+                !formState.title || !formState.description || !formState.dueDate
+              }
             >
               생성
             </BaseButton>

@@ -10,9 +10,14 @@ import { deleteColumn } from "@/api/columns";
 interface ColumnEditdModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   id: number;
+  refreshColumnList: () => void;
 }
 
-function ColumnEditModal({ setIsOpen, id }: ColumnEditdModalProps) {
+function ColumnEditModal({
+  setIsOpen,
+  id,
+  refreshColumnList,
+}: ColumnEditdModalProps) {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
 
   const openAlertModal = () => {
@@ -28,6 +33,7 @@ function ColumnEditModal({ setIsOpen, id }: ColumnEditdModalProps) {
       await deleteColumn(columnId);
       closeAlertModal();
       setIsOpen(false);
+      refreshColumnList();
     } catch (error) {
       console.log(error);
     }

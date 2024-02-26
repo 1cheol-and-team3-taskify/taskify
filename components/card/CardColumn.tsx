@@ -16,13 +16,14 @@ const PLUS_ICON_PATH = "/icons/plusButton.svg";
 interface CardColumnProps {
   id: number;
   title: any;
+  refreshColumnList: () => void;
 }
 
 interface CardId {
   id: number;
 }
 
-const CardColumn = ({ id, title }: CardColumnProps) => {
+const CardColumn = ({ id, title, refreshColumnList }: CardColumnProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [cardData, setCardData] = useState<InitialCardData>();
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
 
   useEffect(() => {
     CardListData(10, id);
-  }, [id]);
+  }, [id, isAddOpen, isCardOpen]);
 
   const openEditModal = () => {
     setIsEditOpen(true);
@@ -52,10 +53,6 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
 
   const openAddModal = () => {
     setIsAddOpen(true);
-  };
-
-  const closeAddModal = () => {
-    setIsAddOpen(false);
   };
 
   const openCardModal = (cardId: number) => {
@@ -70,7 +67,20 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
   return (
     <>
       {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} columnId={id} />}
-      {isEditOpen && <ColumnEditModal setIsOpen={setIsEditOpen} id={id} />}
+      {isEditOpen && (
+        <ColumnEditModal
+          setIsOpen={setIsEditOpen}
+          id={id}
+          refreshColumnList={refreshColumnList}
+        />
+      )}
+      {isCardOpen && (
+        <CardModal
+          setIsOpen={setIsCardOpen}
+          cardId={selectedCard.id}
+          title={title}
+        />
+      )}
       <div className={clsx(styles.container)}>
         <div className={clsx(styles.head)}>
           <div>
@@ -106,13 +116,6 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
             />
           ))}
         </div>
-        {isCardOpen && (
-          <CardModal
-            setIsOpen={setIsCardOpen}
-            cardId={selectedCard.id}
-            title={title}
-          />
-        )}
       </div>
     </>
   );

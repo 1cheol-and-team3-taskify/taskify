@@ -13,11 +13,10 @@ import { CardPropsType } from "@/types/cards";
 import { Comment, CommentContent } from "@/types/comments";
 import { Time } from "@/utils/time";
 import { generateRandomColorHexCode } from "@/utils/color";
-import styles from "./CardModale.module.scss";
+import styles from "./CardModal.module.scss";
 import axios from "@/lib/axios";
 import TagChips from "@/components/chips/TagChips";
 import TodoEditModal from "../todoEditModal";
-import AlertModal from "../alertModal";
 
 interface CardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -27,14 +26,6 @@ interface CardModalProps {
 
 interface CommentForm {
   comment: string;
-}
-
-interface Colors {
-  GREEN: string;
-  PURPLE: string;
-  ORANGE: string;
-  BLUE: string;
-  PINK: string;
 }
 
 const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
@@ -80,8 +71,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
       setIsLoading(false);
     } catch (error) {
       console.error("카드 상세 조회 실패", error);
-      console.log(cardId);
-      console.log(cardData);
     }
   };
 
@@ -96,7 +85,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.post("/comments", {
+      await axios.post("/comments", {
         content: data.comment,
         cardId: cardId,
         columnId: cardData.columnId,
@@ -139,7 +128,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   useEffect(() => {
     getCommentData(10, currentCardId);
     getCardData(currentCardId);
-  }, [currentCardId]);
+  }, [currentCardId, isEditOpen]);
 
   const openEditModal = () => {
     setIsEditOpen(true);
@@ -189,7 +178,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                   </div>
                   <div
                     className={clsx(styles.kebabItem)}
-                    onClick={()=> deleteCardData(cardData.id)}
+                    onClick={() => deleteCardData(cardData.id)}
                   >
                     삭제하기
                   </div>
@@ -215,21 +204,21 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
               </div>
               <div className={clsx(styles.imgWrapper)}>
                 {cardData.imageUrl !== noneImgUrl && (
-                  <div className={clsx(styles.image)}>
-                    <Image
-                      className={clsx(styles.cardImg)}
-                      src={`${cardData.imageUrl}`}
-                      alt="카드 이미지"
-                      fill
-                    />
-                  </div>
+                  <Image
+                    className={clsx(styles.cardImg)}
+                    src={`${cardData.imageUrl}`}
+                    alt="카드 이미지"
+                    width={500}
+                    height={500}
+                    objectFit="cover"
+                  />
                 )}
                 <div>
                   <div className={clsx(styles.assigneeWrapper)}>
                     <div className={clsx(styles.profileWrapper)}>
                       <span>담당자</span>
                       <div className={clsx(styles.profile)}>
-                      <div
+                        <div
                           key={cardData.assignee.id}
                           className={clsx(styles.invitee)}
                           style={{
@@ -295,7 +284,9 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                         {comment.content}
                       </div>
                       <div className={clsx(styles.editButton)}>
-                        <div>수정</div>
+                        <div onClick={() => putCommentData(comment.id)}>
+                          수정
+                        </div>
                         <div onClick={() => deleteCommentData(comment.id)}>
                           삭제
                         </div>

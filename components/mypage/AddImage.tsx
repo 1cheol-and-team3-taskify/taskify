@@ -73,7 +73,6 @@ function AddImage({
       console.error(error);
     }
   };
-  console.log(previewImage);
 
   return (
     <div className={clsx(styles.imageContainer, { [styles.small]: small })}>
